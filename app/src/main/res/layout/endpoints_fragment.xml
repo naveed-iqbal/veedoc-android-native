@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:theme="@style/MaterialButtonTheme">
+
+    <com.google.android.material.button.MaterialButtonToggleGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toggle_button_group_sessions_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        app:checkedButton="@+id/lastMonthButton"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/onlineButton"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/online"
+            app:rippleColor="@color/colorLightBlueTheme"
+            app:strokeColor="@color/colorLightBlueTheme" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/busyButton"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/busy"
+            app:rippleColor="@color/colorLightBlueTheme"
+            app:strokeColor="@color/colorLightBlueTheme" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/offlineButton"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/offline"
+            app:rippleColor="@color/colorLightBlueTheme"
+            app:strokeColor="@color/colorLightBlueTheme" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/endpoints_searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/search_bar_background"
+        android:padding="0dp">
+
+    </androidx.appcompat.widget.SearchView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/endpoints_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
+
+    <TextView
+        android:id="@+id/noEndpointTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/no_endpoint"
+        android:textColor="@android:color/black"
+        android:textStyle="italic"
+        android:visibility="gone" />
+
+
+</LinearLayout>

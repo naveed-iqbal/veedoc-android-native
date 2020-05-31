@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.CompleteSignupActivity">
+
+    <RelativeLayout
+        android:id="@+id/rlIndicators"
+        android:layout_marginTop="100dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_centerVertical="true"
+            android:background="@color/dark_gray"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></TextView>
+        <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+            android:id="@+id/spring_dots_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_centerHorizontal="true"
+            app:dampingRatio="0.5"
+            app:dotsColor="@color/colorAccent"
+            app:dotsCornerRadius="12dp"
+            app:dotsSize="24dp"
+            app:dotsSpacing="25dp"
+            app:dotsStrokeColor="@color/dark_gray"
+            app:dotsStrokeWidth="1dp"
+            app:stiffness="300" />
+    </RelativeLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:layout_marginTop="40dp"
+        android:id="@+id/vpScreens"
+        android:layout_below="@+id/rlIndicators"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.viewpager.widget.ViewPager>
+</RelativeLayout>

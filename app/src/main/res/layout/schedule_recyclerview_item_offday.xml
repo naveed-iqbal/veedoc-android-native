@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scheduleItemLayout_offDay"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/leftLine_myScheduleRV"
+        android:layout_width="5dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_red_dark" />
+
+    <TextView
+        android:id="@+id/dateNumberTextView_mySchedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/leftLine_myScheduleRV"
+        android:layout_centerVertical="true"
+        android:text="1"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
+    <View
+        android:id="@+id/grayline_divider_mySchedule"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@id/dateNumberTextView_mySchedule"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:id="@+id/eventDescriptionTextView_mySchedule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/grayline_divider_mySchedule"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="@string/OFF"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+</RelativeLayout>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/session_recyclerview_option">
+
+    <TextView
+        android:id="@+id/facilityNameTitleTextView_sessionHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/facility_name"
+        android:textColor="@color/colorLightBlueTheme"
+        app:layout_constraintStart_toStartOf="@+id/partnerSiteContents_sessionHistory"
+        app:layout_constraintTop_toBottomOf="@+id/partnerSiteContents_sessionHistory" />
+
+    <TextView
+        android:id="@+id/endpointTitleTextView_sessionHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/endpoint"
+        android:textColor="@color/colorLightBlueTheme"
+        app:layout_constraintBottom_toBottomOf="@+id/facilityNameTitleTextView_sessionHistory"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toEndOf="@+id/facilityNameTitleTextView_sessionHistory"
+        app:layout_constraintTop_toTopOf="@+id/facilityNameTitleTextView_sessionHistory"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/locationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/received_on"
+        android:textColor="@color/colorLightBlueTheme"
+        app:layout_constraintStart_toStartOf="@+id/facilityNameContents_sessionHistory"
+        app:layout_constraintTop_toBottomOf="@+id/facilityNameContents_sessionHistory" />
+
+    <TextView
+        android:id="@+id/partnerSiteTitleTextView_sessionHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/partner_site"
+        android:textColor="@color/colorLightBlueTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/receivedOnContents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp"
+        android:inputType="datetime"
+        android:text="Default Date"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/locationTextView"
+        app:layout_constraintTop_toBottomOf="@+id/locationTextView" />
+
+    <TextView
+        android:id="@+id/endpointContents_sessionHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Default Endpoint"
+        app:layout_constraintStart_toStartOf="@+id/endpointTitleTextView_sessionHistory"
+        app:layout_constraintTop_toBottomOf="@+id/endpointTitleTextView_sessionHistory" />
+
+    <TextView
+        android:id="@+id/facilityNameContents_sessionHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Default Facility"
+        app:layout_constraintStart_toStartOf="@+id/facilityNameTitleTextView_sessionHistory"
+        app:layout_constraintTop_toBottomOf="@+id/facilityNameTitleTextView_sessionHistory" />
+
+    <TextView
+        android:id="@+id/partnerSiteContents_sessionHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Default Telehealth"
+        app:layout_constraintStart_toStartOf="@+id/partnerSiteTitleTextView_sessionHistory"
+        app:layout_constraintTop_toBottomOf="@+id/partnerSiteTitleTextView_sessionHistory" />
+
+    <ImageView
+        android:id="@+id/timeImageView_sessionHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/receivedOnContents"
+        app:layout_constraintStart_toStartOf="@+id/endpointContents_sessionHistory"
+        app:layout_constraintTop_toTopOf="@+id/receivedOnContents"
+        app:srcCompat="@drawable/ic_access_time_light_blue_theme_24dp" />
+
+    <TextView
+        android:id="@+id/timeElapsed_sessionHistory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="1 min"
+        app:layout_constraintBottom_toBottomOf="@+id/timeImageView_sessionHistory"
+        app:layout_constraintEnd_toEndOf="@+id/endpointContents_sessionHistory"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/timeImageView_sessionHistory"
+        app:layout_constraintTop_toTopOf="@+id/timeImageView_sessionHistory" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

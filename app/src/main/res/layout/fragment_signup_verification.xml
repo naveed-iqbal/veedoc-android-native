@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:paddingStart="45dp"
+            android:paddingEnd="45dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/llCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/line_boundary_bg"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/verification_code"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"></TextView>
+
+                <EditText
+                    android:id="@+id/etCode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/enter_verification_code"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <Button
+                android:layout_marginTop="32dp"
+                android:id="@+id/btnVerify"
+                android:layout_below="@+id/llCode"
+                style="@style/FormButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/verify_code"/>
+
+            <Button
+                android:layout_marginTop="32dp"
+                android:id="@+id/btnResend"
+                android:layout_below="@+id/btnVerify"
+                style="@style/FormButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/resend_code"/>
+        </RelativeLayout>
+
+    </ScrollView>
+
+</layout>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/session_option"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/title_sessions" />
+
+    <item
+        android:id="@+id/messages_option"
+        android:icon="@drawable/ic_message_black_24dp"
+        android:title="@string/title_messages" />
+
+    <item
+        android:id="@+id/schedule_option"
+        android:icon="@drawable/ic_event_black_24dp"
+        android:title="@string/title_schedule" />
+
+    <item
+        android:id="@+id/endpoints_option"
+        android:icon="@drawable/ic_laptop_black_24dp"
+        android:title="@string/title_endpoints" />
+
+    <item
+        android:id="@+id/more_option"
+        android:icon="@drawable/ic_more_horiz_black_24dp"
+        android:title="@string/title_more" />
+
+</menu>

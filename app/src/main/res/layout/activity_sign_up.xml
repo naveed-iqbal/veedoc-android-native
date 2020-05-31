@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".activities.SignUpActivity">
+
+
+    <LinearLayout
+        android:id="@+id/llTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/logoImg_signUp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/titleVeeDocTextView_forgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:text="@string/app_name"
+            android:textSize="40sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:id="@+id/llContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/llTitle"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/emailEditText_signUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Email"
+            style="@style/FormTextView"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/mobileNumberEditText_signUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/emailEditText_signUp"
+            android:ems="10"
+            style="@style/FormTextView"
+            android:hint="Mobile Number"
+            android:inputType="phone" />
+
+
+        <EditText
+            android:id="@+id/LastNameEditText_signUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Last Name"
+            style="@style/FormTextView"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/firstNameEditText_signUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="First Name"
+            android:inputType="textPersonName"
+            style="@style/FormTextView" />
+
+        <Spinner
+            android:id="@+id/credentialsSpinner_signUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/FormSpinner"
+            android:entries="@array/states_list"
+            android:spinnerMode="dropdown" />
+
+        <Spinner
+            android:id="@+id/titleSpinner_signUp"
+            android:layout_width="match_parent"
+            style="@style/FormSpinner"
+            android:entries="@array/states_list"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/passwordEditText_signUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/password"
+            style="@style/FormTextView"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/confirmPasswordEditText_signUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword"
+            style="@style/FormTextView" />
+
+        <Button
+            android:id="@+id/signUpBtn_signUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/sign_up"
+            style="@style/FormButton"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/haveAccountTextView_signUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/llContent"
+        android:layout_centerHorizontal="true"
+
+        android:gravity="center"
+        android:text="@string/ask_have_account" />
+
+
+</RelativeLayout>

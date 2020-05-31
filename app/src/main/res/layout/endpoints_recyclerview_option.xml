@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/offline_onlineTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="@string/offline"
+        android:textColor="@color/colorLightBlueTheme"
+        app:layout_constraintBottom_toBottomOf="@+id/offline_onlineSquare"
+        app:layout_constraintStart_toEndOf="@+id/offline_onlineSquare"
+        app:layout_constraintTop_toTopOf="@+id/offline_onlineSquare" />
+
+    <TextView
+        android:id="@+id/lastSessionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/last_session"
+        android:textColor="@color/colorLightBlueTheme"
+        app:layout_constraintBottom_toBottomOf="@+id/locationTextView"
+        app:layout_constraintStart_toStartOf="@+id/endpointContents_endpoint"
+        app:layout_constraintTop_toTopOf="@+id/locationTextView" />
+
+    <TextView
+        android:id="@+id/facilityNameTitleTextView_endpoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/facility_name"
+        android:textColor="@color/colorLightBlueTheme"
+        app:layout_constraintStart_toStartOf="@+id/partnerSiteContents_endpoint"
+        app:layout_constraintTop_toBottomOf="@+id/partnerSiteContents_endpoint" />
+
+    <TextView
+        android:id="@+id/endpointTitleTextView_endpoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/endpoint"
+        android:textColor="@color/colorLightBlueTheme"
+        app:layout_constraintBottom_toBottomOf="@+id/facilityNameTitleTextView_endpoint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toEndOf="@+id/facilityNameTitleTextView_endpoint"
+        app:layout_constraintTop_toTopOf="@+id/facilityNameTitleTextView_endpoint"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/locationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/location_with_colon"
+        android:textColor="@color/colorLightBlueTheme"
+        app:layout_constraintStart_toStartOf="@+id/facilityNameContents_endpoint"
+        app:layout_constraintTop_toBottomOf="@+id/facilityNameContents_endpoint" />
+
+    <TextView
+        android:id="@+id/partnerSiteTitleTextView_endpoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/partner_site"
+        android:textColor="@color/colorLightBlueTheme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/connectButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_background"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:text="@string/connect"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/lastSessionContents"
+        app:layout_constraintTop_toBottomOf="@+id/lastSessionContents" />
+
+    <TextView
+        android:id="@+id/locationContents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Default Location"
+        app:layout_constraintStart_toStartOf="@+id/locationTextView"
+        app:layout_constraintTop_toBottomOf="@+id/locationTextView" />
+
+    <TextView
+        android:id="@+id/endpointContents_endpoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Default Endpoint"
+        app:layout_constraintStart_toStartOf="@+id/endpointTitleTextView_endpoint"
+        app:layout_constraintTop_toBottomOf="@+id/endpointTitleTextView_endpoint" />
+
+    <TextView
+        android:id="@+id/lastSessionContents"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Default Session"
+        app:layout_constraintStart_toStartOf="@+id/lastSessionTextView"
+        app:layout_constraintTop_toBottomOf="@+id/lastSessionTextView" />
+
+    <TextView
+        android:id="@+id/facilityNameContents_endpoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Default Facility"
+        app:layout_constraintStart_toStartOf="@+id/facilityNameTitleTextView_endpoint"
+        app:layout_constraintTop_toBottomOf="@+id/facilityNameTitleTextView_endpoint" />
+
+    <TextView
+        android:id="@+id/partnerSiteContents_endpoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Default Telehealth"
+        app:layout_constraintStart_toStartOf="@+id/partnerSiteTitleTextView_endpoint"
+        app:layout_constraintTop_toBottomOf="@+id/partnerSiteTitleTextView_endpoint" />
+
+    <ImageView
+        android:id="@+id/offline_onlineSquare"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="@+id/locationContents"
+        app:layout_constraintTop_toBottomOf="@+id/locationContents"
+        app:srcCompat="@drawable/filled_square_gray" />
+</androidx.constraintlayout.widget.ConstraintLayout>

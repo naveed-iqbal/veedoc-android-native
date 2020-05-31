@@ -1,0 +1,62 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+   <style name="MaterialButtonTheme" parent = "Theme.MaterialComponents.Light"/>
+
+    <style name="CheckBoxStyle" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="colorAccent">@color/colorLightBlueTheme</item>
+    </style>
+
+    <style name="AlertStyle" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="colorAccent">@color/colorLightBlueTheme</item>
+    </style>
+
+    <style name="FormControl">
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:layout_marginTop">7dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="FormEditText" parent="FormControl">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="FormTextView" parent="FormControl">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="FormSpinner" parent="FormControl">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="FormButton">
+        <item name="android:paddingStart">32dp</item>
+        <item name="android:paddingEnd">32dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/button_background</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
+</resources>

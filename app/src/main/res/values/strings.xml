@@ -1,0 +1,189 @@
+<resources>
+    <string name="app_name">VeeDoc</string>
+    <string name="sign_in">Sign in</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="forgot_password">Forgot your password?</string>
+    <string name="version">Version 1.0.45</string>
+    <string name="full_copyright">\u00A9\2019 VeeMed Inc</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="ask_have_account">Have an account? Sign in</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="back_sign_in">Go back to Sign in</string>
+    <string name="sign_out">Sign out</string>
+
+    <string-array name="credentials_array_signUp">
+        <item>M.D.</item>
+        <item>D.O.</item>
+        <item>R.N.</item>
+        <item>N/A</item>
+    </string-array>
+
+    <string-array name="titles_array_signUp">
+        <item>Physician</item>
+        <item>Manager</item>
+        <item>Director</item>
+        <item>CIO</item>
+        <item>None</item>
+    </string-array>
+
+    <string-array name="states_list">
+        <item>Alabama</item>
+        <item>Alaska</item>
+        <item>Arizona</item>
+        <item>Arkansas</item>
+        <item>California</item>
+        <item>Colorado</item>
+        <item>Connecticut</item>
+        <item>Delaware</item>
+        <item>District of Colombia</item>
+        <item>Florida</item>
+        <item>Georgia</item>
+        <item>Hawaii</item>
+        <item>Idaho</item>
+        <item>Illinois</item>
+        <item>Indiana</item>
+        <item>Iowa</item>
+        <item>Kansas</item>
+        <item>Kentucky</item>
+        <item>Louisiana</item>
+        <item>Maine</item>
+        <item>Maryland</item>
+        <item>Massachusetts</item>
+        <item>Michigan</item>
+        <item>Minnesota</item>
+        <item>Mississippi</item>
+        <item>Missouri</item>
+        <item>Montana</item>
+        <item>Nebraska</item>
+        <item>Nevada</item>
+        <item>New Hampshire</item>
+        <item>New Jersey</item>
+        <item>New Mexico</item>
+        <item>New York</item>
+        <item>North Carolina</item>
+        <item>North Dakota</item>
+        <item>Ohio</item>
+        <item>Oklahoma</item>
+        <item>Oregon</item>
+        <item>Pennsylvania</item>
+        <item>Rhode Island</item>
+        <item>South Carolina</item>
+        <item>South Dakota</item>
+        <item>Tennessee</item>
+        <item>Texas</item>
+        <item>Utah</item>
+        <item>Vermont</item>
+        <item>Virginia</item>
+        <item>Washington</item>
+        <item>West Virginia</item>
+        <item>Wisconsin</item>
+        <item>Wyoming</item>
+    </string-array>
+
+    <string name="title_activity_navigation_bar">NavigationBarActivity</string>
+    <string name="title_sessions">Sessions</string>
+    <string name="title_messages">Messages</string>
+    <string name="title_schedule">Schedule</string>
+    <string name="title_endpoints">Endpoints</string>
+    <string name="title_more">More</string>
+
+    <string name="endpoint_search_bar">Search Endpoint</string>
+
+    <string name="partner_site">Partner Site:</string>
+    <string name="facility_name">Facility Name:</string>
+    <string name="location_with_colon">Location:</string>
+    <string name="endpoint">Endpoint:</string>
+    <string name="last_session">Last Session:</string>
+
+    <string name="offline">offline</string>
+    <string name="online">online</string>
+
+    <string name="connect">Connect</string>
+
+    <string name="new_password">New Password</string>
+    <string name="current_password">Current Password</string>
+    <string name="change_password">Change Password</string>
+
+    <string name="personal_info">Personal Information</string>
+    <string name="location_no_colon">Location</string>
+    <string name="specialist_info">Specialist Information</string>
+    <string name="full_name">Full Name</string>
+    <string name="email">Email</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="country">Country</string>
+    <string name="state">State</string>
+    <string name="city_optional">City (Optional)</string>
+    <string name="address_optional">Address (Optional)</string>
+    <string name="other_address_optional">Other Address (Optional)</string>
+    <string name="dea">Dea Number</string>
+    <string name="npi">Npi Number</string>
+    <string name="licensed_state">Licensed State</string>
+    <string name="speciality">Speciality Name</string>
+    <string name="practice_group">Practice Group</string>
+    <string name="save">Save</string>
+
+    <string name="current_virtual_sessions">Current Virtual Sessions</string>
+    <string name="last_week">Last Week</string>
+    <string name="last_month">Last Month</string>
+    <string name="last_year">Last Year</string>
+
+    <string name="search_session_history">Search Session History</string>
+
+    <string name="chat">Chat</string>
+    <string name="deferred">Deferred</string>
+
+    <string name="sessions">Sessions</string>
+    <string name="session_history">Session History</string>
+
+    <string name="no_new_message">There are no new messages</string>
+
+    <string name="search_user">Search user...</string>
+    <string name="users">Users</string>
+    <string name="no_users_available">No Users Available</string>
+    <string name="support">Support</string>
+    <string name="no_support">No Support Group Available</string>
+
+    <string name="done">Done</string>
+
+    <string name="no_virtual_sessions">There are no virtual sessions pending</string>
+    <string name="no_session_history">There is no session history</string>
+    <string name="no_endpoint">No endpoint found</string>
+
+    <string name="received_on">Received On:</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="_int">%d</string>
+
+    <string name="enter_licensed_state">Enter licensed State Number</string>
+
+    <string name="OFF">OFF</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="verify_code">Verify Code</string>
+    <string name="enter_verification_code">Enter verification code</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="back">Back</string>
+    <string name="secret_question_1">Secret Question 1</string>
+    <string name="secret_answer_1">Secret Answer 1</string>
+    <string name="secret_question_2">Secret Question 2</string>
+    <string name="secret_answer_2">Secret Answer 2</string>
+    <string name="dea_number">DEA Number</string>
+    <string name="npi_number">NPI Number</string>
+    <string name="practice">Practice</string>
+    <string name="complete">Complete</string>
+    <string name="check_email_verification">Please check your email for verification</string>
+    <string name="somrthing_went_wrong">Something went wrong, please try later</string>
+    <string name="busy">Busy</string>
+    <string name="code_verified">Code verified</string>
+    <string name="code_resent">Code resent, please check your email</string>
+    <string name="can_not_be_empty">Can not be empty</string>
+    <string name="select_one_state">Select at least 1 State</string>
+    <string name="invalid_value">Invalid value</string>
+
+</resources>

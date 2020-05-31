@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp">
+
+            <EditText
+                android:id="@+id/etZipCode"
+                style="@style/FormEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Zip"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etAddress1"
+                style="@style/FormEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Address 1 (Optional)"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etAddress2"
+                style="@style/FormEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Address 2 (Optional)"
+                android:textSize="18sp" />
+
+            <EditText
+                style="@style/FormEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:enabled="false"
+                android:hint="United States"
+                android:textSize="18sp" />
+
+
+            <Spinner
+                android:id="@+id/spState"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:entries="@array/states_list" />
+
+            <EditText
+                android:id="@+id/etCity"
+                style="@style/FormEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="City"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/etEmployer"
+                style="@style/FormEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="Employer"
+                android:textSize="18sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <Button
+                    android:id="@+id/btnPrevious"
+                    style="@style/FormButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/llCode"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/back" />
+
+                <Button
+                    android:id="@+id/btnNext"
+                    style="@style/FormButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/next" />
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

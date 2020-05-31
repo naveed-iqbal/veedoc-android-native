@@ -1,0 +1,385 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<data>
+    <variable
+        name="user"
+        type="com.veemed.veedoc.models.User" />
+    <variable
+        name="navigationViewModel"
+        type="com.veemed.veedoc.viewmodels.NavigationActivityViewModel" />
+
+</data>
+<com.emilsjolander.components.StickyScrollViewItems.StickyScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/personal_info"
+        android:textSize="20sp"
+        android:textColor="@color/colorLightBlueTheme"
+        android:background="@color/lightGray"
+        android:textStyle="bold"
+        android:id="@+id/personalInfoHeader"
+        android:tag="sticky"
+        android:paddingLeft="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fullNameTextView_profileManagement"
+            android:text="@string/full_name"
+            android:textSize="15sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/full_name"
+            android:background="@drawable/transparent_background"
+            android:text="@{user.fullName}"
+            android:textSize="12sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/fullNameEditText_profileManagement"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/emailTextView_profileManagement"
+            android:text="@string/email"
+            android:textSize="15sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            android:background="@drawable/transparent_background"
+            android:textSize="12sp"
+            android:text="@{user.email}"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/emailEditText_profileManagement"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mobileNumberTextView_profileManagement"
+            android:text="@string/mobile_number"
+            android:textSize="15sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/mobile_number"
+            android:text="@{user.mobileNumber}"
+            android:background="@drawable/transparent_background"
+            android:textSize="12sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/mobileNumberEditText_profileManagement"
+            android:inputType="phone"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/location_no_colon"
+            android:textSize="20sp"
+            android:textColor="@color/colorLightBlueTheme"
+            android:background="@color/lightGray"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:id="@+id/locationHeader"
+            android:tag="sticky"
+            android:paddingLeft="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/zipCode_profileManagement"
+            android:text="@string/zip_code"
+            android:textSize="15sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/zip_code"
+            android:text="@{user.location.zipCode + ``}"
+            android:background="@drawable/transparent_background"
+            android:textSize="12sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/zipCodeEditText_profileManagement"
+            android:inputType="number"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/country_profileManagement"
+            android:text="@string/country"
+            android:textSize="15sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/transparent_background"
+            android:textSize="12sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:text="@{user.location.country}"
+            android:id="@+id/countryTextView_profileManagement"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/stateTextView_profileManagement"
+            android:text="@string/state"
+            android:textSize="15sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/transparent_background"
+            android:textSize="12sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/stateSpinner_profileManagement" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/cityTextView_profileManagement"
+            android:text="@string/city_optional"
+            android:textSize="15sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/city_optional"
+            android:background="@drawable/transparent_background"
+            android:text="@{user.location.city}"
+            android:textSize="12sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/cityEditText_profileManagement"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addressTextView_profileManagement"
+            android:text="@string/address_optional"
+            android:textSize="15sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/address_optional"
+            android:background="@drawable/transparent_background"
+            android:text="@{user.location.address}"
+            android:textSize="12sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/addressEditText_profileManagement"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/otherAddressTextView_profileManagement"
+            android:text="@string/other_address_optional"
+            android:textSize="15sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/other_address_optional"
+            android:background="@drawable/transparent_background"
+            android:text="@{user.location.otherAddress}"
+            android:textSize="12sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/otherAddressEditText_profileManagement"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/specialist_info"
+            android:textSize="20sp"
+            android:textColor="@color/colorLightBlueTheme"
+            android:background="@color/lightGray"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:id="@+id/specialistInfoHeader"
+            android:tag="sticky"
+            android:paddingLeft="20dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/deaTextView_profileManagement"
+            android:text="@string/dea"
+            android:textSize="15sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dea"
+            android:text="@{user.specialistInformation.deaNumber}"
+            android:background="@drawable/transparent_background"
+            android:textSize="12sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/deaEditText_profileManagement"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/npiTextView_profileManagement"
+            android:text="@string/npi"
+            android:textSize="15sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/npi"
+            android:background="@drawable/transparent_background"
+            android:text="@{`` + user.specialistInformation.npiNumber}"
+            android:textSize="12sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/npiEditText_profileManagement"
+            android:inputType="number"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/licensedStateTextView_profileManagement"
+            android:text="@string/licensed_state"
+            android:textSize="15sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{user.specialistInformation.statesAndNumbersText}"
+            android:textSize="12sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:id="@+id/licensedStateTextViewAnswer_profileManagement"
+            android:textColor="@android:color/black"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/specialtyNameTextView_profileManagement"
+            android:text="@string/speciality"
+            android:textSize="15sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/speciality"
+            android:textSize="12sp"
+            android:layout_marginLeft="40dp"
+            android:text="@{user.specialistInformation.specialityName}"
+            android:layout_marginTop="10dp"
+            android:id="@+id/specialtyNameAnswerTextView_profileManagement"
+            android:textColor="@android:color/black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pracGroupTextView_profileManagement"
+            android:text="@string/practice_group"
+            android:textSize="15sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/practice_group"
+            android:background="@drawable/transparent_background"
+            android:text="@{user.specialistInformation.practiceGroup}"
+            android:textSize="12sp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/pracGroupEditText_profileManagement"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="@string/save"
+            android:textColor="@android:color/white"
+            android:background="@drawable/button_background"
+            android:layout_margin="20dp"
+            android:id="@+id/saveButton_profileManagement"/>
+
+
+    </LinearLayout>
+
+</com.emilsjolander.components.StickyScrollViewItems.StickyScrollView>
+</layout>
