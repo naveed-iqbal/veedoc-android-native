@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -18,8 +17,7 @@ import com.veemed.veedoc.fragments.signup.AddressFragment;
 import com.veemed.veedoc.fragments.signup.SecretQuestionsFragment;
 import com.veemed.veedoc.fragments.signup.SpecialistInformationFragment;
 import com.veemed.veedoc.fragments.signup.VerifyCodeFragment;
-import com.veemed.veedoc.models.SpecialistInformation;
-import com.veemed.veedoc.repositories.VeeDocUserRepository;
+import com.veemed.veedoc.repositories.VeeDocRepository;
 import com.veemed.veedoc.utils.AppPreferencesManager;
 import com.veemed.veedoc.utils.Toast;
 import com.veemed.veedoc.webservices.RetrofitCallbackListener;
@@ -60,7 +58,7 @@ public class CompleteSignupActivity extends AppCompatActivity implements Fragmen
         });
 
         // get current status of user
-        VeeDocUserRepository.getInstance().getUserAPIResponse(retrofitCallbackListener, 0);
+        VeeDocRepository.getInstance().getUserAPIResponse(retrofitCallbackListener, 0);
 
     }
 
@@ -120,7 +118,7 @@ public class CompleteSignupActivity extends AppCompatActivity implements Fragmen
     }
 
     private void uploadData() {
-        VeeDocUserRepository.getInstance().completeRegistration(userToCreate, new RetrofitCallbackListener<String>() {
+        VeeDocRepository.getInstance().completeRegistration(userToCreate, new RetrofitCallbackListener<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response, int requestID) {
                 if(response.isSuccessful()) {

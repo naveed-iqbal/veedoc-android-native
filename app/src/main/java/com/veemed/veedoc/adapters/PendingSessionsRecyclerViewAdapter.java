@@ -1,7 +1,6 @@
 package com.veemed.veedoc.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,27 +8,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.veemed.CallActionsModel;
 import com.veemed.veedoc.R;
-import com.veemed.veedoc.activities.KartCallActivity;
-import com.veemed.veedoc.models.CallAcceptAPIResponse;
 import com.veemed.veedoc.models.PendingSession;
-import com.veemed.veedoc.models.SessionInfo;
-import com.veemed.veedoc.repositories.VeeDocUserRepository;
-import com.veemed.veedoc.webservices.RetrofitCallbackListener;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class PendingSessionsRecyclerViewAdapter extends RecyclerView.Adapter<PendingSessionsRecyclerViewAdapter.ViewHolder> implements View.OnClickListener {
 
@@ -62,27 +50,64 @@ public class PendingSessionsRecyclerViewAdapter extends RecyclerView.Adapter<Pen
             holder.btnAccept.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    acceptCall(position);
+                    acceptCall(holder.btnAccept, position);
                 }
             });
             holder.btnReject.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    rejectCall(position);
+                    rejectCall(holder.btnReject, position);
                 }
             });
-            holder.btnDefer.setOnClickListener(this);
-        } else if (pendingSessions.get(position).getStatus().equalsIgnoreCase("Deferred")){
-            holder.llActions.setVisibility(View.VISIBLE);
-            holder.llDeferredActions.setVisibility(View.GONE);
+            holder.btnDefer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    deferCall(holder.btnDefer, position);
+                }
+            });
 
-            holder.btnStart.setOnClickListener(this);
-            holder.btnCancel.setOnClickListener(this);
-            holder.btnMessage.setOnClickListener(this);
-        } else {
+        } else if (pendingSessions.get(position).getStatus().equalsIgnoreCase("DeferredState")){
+            holder.llActions.setVisibility(View.GONE);
+            holder.llDeferredActions.setVisibility(View.VISIBLE);
+
+            holder.btnStart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    acceptCall(holder.btnStart, position);
+                }
+            });
+            holder.btnCancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    rejectCall(holder.btnReject, position);
+                }
+            });
+            holder.btnMessage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    message(holder.btnMessage, position);
+                }
+            });
+        } else if (pendingSessions.get(position).getStatus().equalsIgnoreCase("Connected")) {
             holder.llActions.setVisibility(View.GONE);
             holder.llDeferredActions.setVisibility(View.GONE);
+            displayCallConnectAlter(position);
         }
+    }
+
+    private void displayCallConnectAlter(int position) {
+        recyclerViewListener.performAction("DISPLAY_CALL_CONNECT_ALERT", position);
+    }
+
+
+
+    private void message(ImageView btnMessage, int position) {
+        recyclerViewListener.itemClicked(btnMessage, position);
+    }
+
+    private void deferCall(View view, int position) {
+        recyclerViewListener.itemClicked(view, position);
+        
     }
 
     @Override
@@ -120,47 +145,14 @@ public class PendingSessionsRecyclerViewAdapter extends RecyclerView.Adapter<Pen
         }
     }
 
-    private void acceptCall(int position) {
-        CallActionsModel actionsModel = new CallActionsModel();
-        actionsModel.setPerformedBy(1);
-        actionsModel.setPerformedAction("Accepted");
-        actionsModel.setSpecialistRequestId(pendingSessions.get(position).getId());
-        VeeDocUserRepository.getInstance().acceptCall(actionsModel, new RetrofitCallbackListener<SessionInfo>() {
-            @Override
-            public void onResponse(Call<SessionInfo> call, Response<SessionInfo> response, int requestID) {
-                if(response.isSuccessful()) {
-                    SessionInfo apiResponse = response.body();
-                    Intent intent = new Intent(context, KartCallActivity.class);
-                    intent.putExtra("session", apiResponse);
-                    context.startActivity(intent);
-                }
-            }
+    private void acceptCall(View view, int position) {
+        recyclerViewListener.itemClicked(view, position);
 
-            @Override
-            public void onFailure(Call<SessionInfo> call, Throwable t, int requestID) {
-
-            }
-        }, 0);
     }
 
-    private void rejectCall(int position) {
-        CallActionsModel actionsModel = new CallActionsModel();
-        actionsModel.setPerformedBy(1);
-        actionsModel.setPerformedAction("Rejected");
-        actionsModel.setSpecialistRequestId(pendingSessions.get(position).getId());
-        VeeDocUserRepository.getInstance().rejectCall(actionsModel, new RetrofitCallbackListener<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response, int requestID) {
-                if(response.isSuccessful()) {
-                    Toast.makeText(context, "Session closed", Toast.LENGTH_LONG).show();
-                }
-            }
+    private void rejectCall(View view, int position) {
+        recyclerViewListener.itemClicked(view, position);
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable t, int requestID) {
-
-            }
-        }, 0);
 
     }
 

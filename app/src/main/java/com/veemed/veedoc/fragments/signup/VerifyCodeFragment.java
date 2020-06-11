@@ -14,12 +14,11 @@ import com.veemed.veedoc.R;
 import com.veemed.veedoc.activities.CompleteSignupActivity;
 import com.veemed.veedoc.fragments.FragmentInteractionListener;
 import com.veemed.veedoc.models.VerificationCode;
-import com.veemed.veedoc.repositories.VeeDocUserRepository;
+import com.veemed.veedoc.repositories.VeeDocRepository;
 import com.veemed.veedoc.utils.AppPreferencesManager;
 import com.veemed.veedoc.utils.Toast;
 import com.veemed.veedoc.webservices.RetrofitCallbackListener;
 import com.veemed.veedoc.webservices.UserAPIResponse;
-import com.veemed.veedoc.webservices.VeeDocRetrofitDataSource;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -98,11 +97,11 @@ public class VerifyCodeFragment extends Fragment implements View.OnClickListener
 
         VerificationCode verificationCode = new VerificationCode();
         verificationCode.setVerificationKey(code);
-        VeeDocUserRepository.getInstance().verifyCode(verificationCode, this, 0);
+        VeeDocRepository.getInstance().verifyCode(verificationCode, this, 0);
     }
 
     private void resendCode() {
-        VeeDocUserRepository.getInstance().resendVerificationCode(resendCodeListener, 0);
+        VeeDocRepository.getInstance().resendVerificationCode(resendCodeListener, 0);
     }
 
     @Override

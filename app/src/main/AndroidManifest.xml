@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.widgets.SearchableSpinner"></activity>
+        <activity android:name=".activities.MessagesActivity"></activity>
+        <activity android:name=".activities.DeferCallActivity" />
+        <activity android:name=".activities.widgets.SearchableSpinner" />
         <activity android:name=".activities.widgets.SearchableSpinnerDialog" />
         <activity android:name=".activities.KartCallActivity" />
         <activity android:name=".activities.CompleteSignupActivity" /> <!-- <activity android:name=".test"></activity> -->
@@ -28,7 +30,9 @@
             android:name=".activities.NavigationBarActivity"
             android:label="@string/title_activity_navigation_bar" />
         <activity android:name=".activities.ForgotPasswordActivity" />
-        <activity android:name=".activities.SignUpActivity" />
+        <activity
+            android:name=".activities.SignUpActivity"
+            android:theme="@style/Theme.MaterialComponents.Dialog" />
     </application>
 
 </manifest>

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.veemed.veedoc.utils.ReturnResponse;
 import com.veemed.veedoc.utils.Utility;
-import com.veemed.veedoc.repositories.VeeDocUserRepository;
+import com.veemed.veedoc.repositories.VeeDocRepository;
 import com.veemed.veedoc.webservices.RetrofitCallbackListener;
 import com.veemed.veedoc.webservices.TokenResponse;
 import com.veemed.veedoc.webservices.UserAPIResponse;
@@ -16,12 +16,12 @@ import retrofit2.Response;
 
 public class LoginActivityViewModel extends ViewModel {
 
-    private VeeDocUserRepository userRepo;
+    private VeeDocRepository userRepo;
     private LiveData<ReturnResponse<TokenResponse>> loginSuccessLiveData = new MutableLiveData<>();
     private MutableLiveData<UserAPIResponse> userInfoLiveData;
 
     public LoginActivityViewModel() {
-        userRepo = VeeDocUserRepository.getInstance();
+        userRepo = VeeDocRepository.getInstance();
     }
 
     public void fetchUserInfo() {

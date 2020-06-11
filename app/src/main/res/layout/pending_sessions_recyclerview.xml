@@ -75,7 +75,7 @@
             android:padding="7dp"
             android:drawableStart="@drawable/ic_access_time_black_24dp"
 
-            android:text="Defer"
+            android:text="@string/defer"
             android:layout_marginEnd="10dp"
             android:textColor="@color/colorLightBlueTheme"
             />
@@ -91,7 +91,7 @@
             android:padding="7dp"
             android:drawableStart="@drawable/ic_call_end_black_24dp"
             android:backgroundTint="@color/red"
-            android:text="Reject"
+            android:text="@string/reject"
             android:textColor="@android:color/white"
             />
         <Button
@@ -106,7 +106,7 @@
             android:padding="7dp"
             android:drawableStart="@drawable/ic_local_phone_black_24dp"
             android:backgroundTint="@color/dark_green"
-            android:text="Accept"
+            android:text="@string/accept"
             android:textColor="@android:color/white"
             />
     </LinearLayout>
@@ -142,7 +142,7 @@
             android:background="@drawable/border_darker_gray_radius"
             android:textSize="14sp"
             android:padding="7dp"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:textColor="@color/colorLightBlueTheme"
             />
         <Button
@@ -157,7 +157,7 @@
             android:padding="7dp"
             android:drawableStart="@drawable/ic_local_phone_black_24dp"
             android:backgroundTint="@color/dark_green"
-            android:text="Start"
+            android:text="@string/start"
             android:textColor="@android:color/white"
             />
     </LinearLayout>

@@ -8,7 +8,11 @@ import androidx.lifecycle.MutableLiveData;
 import com.veemed.CallActionsModel;
 import com.veemed.veedoc.models.CallAcceptAPIResponse;
 import com.veemed.veedoc.models.ChangePassword;
+import com.veemed.veedoc.models.Conversation;
+import com.veemed.veedoc.models.DeferResponseModel;
 import com.veemed.veedoc.models.EndpointStatus;
+import com.veemed.veedoc.models.Message;
+import com.veemed.veedoc.models.NewMessageBody;
 import com.veemed.veedoc.models.PendingSession;
 import com.veemed.veedoc.models.UserAPIRequest;
 import com.veemed.veedoc.models.event.OffDayModel;
@@ -30,6 +34,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Path;
 
 public class VeeDocRetrofitDataSource {
 
@@ -351,6 +356,22 @@ public class VeeDocRetrofitDataSource {
         });
     }
 
+    public void deferCall(CallActionsModel actionsModel, RetrofitCallbackListener<Conversation> callbackListener, int requestID){
+
+        Call<Conversation> response =  RetrofitBuilder.getVeeDocAPI().callActionDefer(actionsModel, Utility.bearerToken);
+        response.enqueue(new Callback<Conversation>() {
+            @Override
+            public void onResponse(Call<Conversation> call, Response<Conversation> response) {
+                callbackListener.onResponse(call, response, requestID);
+            }
+
+            @Override
+            public void onFailure(Call<Conversation> call, Throwable t) {
+                callbackListener.onFailure(call, t, requestID);
+            }
+        });
+    }
+
     public void acceptCall(CallActionsModel actionsModel, RetrofitCallbackListener<SessionInfo> callbackListener, int requestID){
 
         Call<SessionInfo> response =  RetrofitBuilder.getVeeDocAPI().callActionAccept(actionsModel, Utility.bearerToken);
@@ -367,7 +388,58 @@ public class VeeDocRetrofitDataSource {
         });
     }
 
+    public void getConversations(RetrofitCallbackListener<List<Conversation>> callbackListener, int requestID){
 
+        Call<List<Conversation>> response =  RetrofitBuilder.getVeeDocAPI().getConversations(Utility.bearerToken);
+        response.enqueue(new Callback<List<Conversation>>() {
+            @Override
+            public void onResponse(Call<List<Conversation>> call, Response<List<Conversation>> response) {
+                callbackListener.onResponse(call, response, requestID);
+            }
+
+            @Override
+            public void onFailure(Call<List<Conversation>> call, Throwable t) {
+                callbackListener.onFailure(call, t, requestID);
+            }
+        });
+    }
+
+    public void getMessages(
+            int messageSessionId,
+            int pageIndex,
+            int length,
+            boolean unread,
+            RetrofitCallbackListener<List<Message>> callbackListener, int requestID){
+
+        Call<List<Message>> response =  RetrofitBuilder.getVeeDocAPI().getMessages(messageSessionId, pageIndex, length, unread, Utility.bearerToken);
+        response.enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+                callbackListener.onResponse(call, response, requestID);
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+                callbackListener.onFailure(call, t, requestID);
+            }
+        });
+    }
+
+    public void sendNewMessage(NewMessageBody messageBody, RetrofitCallbackListener<Void> callbackListener, int requestID){
+
+        Call<Void> response =  RetrofitBuilder.getVeeDocAPI().sendNewMessage(messageBody, Utility.bearerToken);
+        response.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                callbackListener.onResponse(call, response, requestID);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                callbackListener.onFailure(call, t, requestID);
+            }
+        });
+    }
 
     public void changePassword(ChangePassword changePassword, RetrofitCallbackListener<Void> callbackListener, int requestID){
 

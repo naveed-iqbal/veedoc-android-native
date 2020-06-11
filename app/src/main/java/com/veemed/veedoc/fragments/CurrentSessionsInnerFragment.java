@@ -1,11 +1,14 @@
 package com.veemed.veedoc.fragments;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,17 +19,26 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.veemed.CallActionsModel;
 import com.veemed.veedoc.R;
+import com.veemed.veedoc.activities.DeferCallActivity;
+import com.veemed.veedoc.activities.KartCallActivity;
+import com.veemed.veedoc.activities.widgets.CallReconnectDialog;
 import com.veemed.veedoc.adapters.PendingSessionsRecyclerViewAdapter;
 import com.veemed.veedoc.adapters.RecyclerViewListener;
 import com.veemed.veedoc.models.PendingSession;
+import com.veemed.veedoc.models.SessionInfo;
+import com.veemed.veedoc.repositories.VeeDocRepository;
 import com.veemed.veedoc.utils.Utility;
 import com.veemed.veedoc.viewmodels.CurrentSessionsViewModel;
-import com.veemed.veedoc.viewmodels.EndpointsViewModel;
 import com.veemed.veedoc.viewmodels.NavigationActivityViewModel;
+import com.veemed.veedoc.webservices.RetrofitCallbackListener;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class CurrentSessionsInnerFragment extends Fragment implements RecyclerViewListener {
 
@@ -36,7 +48,7 @@ public class CurrentSessionsInnerFragment extends Fragment implements RecyclerVi
     private View view;
     private PendingSessionsRecyclerViewAdapter pendingSessionsRecyclerViewAdapter;
     private LinearLayoutManager layoutManager;
-    Handler handler = new Handler();
+    private Handler handler = new Handler();
     private List<PendingSession> pendingSessions = new ArrayList<>();
     private TextView noVirtualSessionTextView;
 
@@ -108,6 +120,98 @@ public class CurrentSessionsInnerFragment extends Fragment implements RecyclerVi
 
     @Override
     public void itemClicked(View view, int position) {
+        int id = view.getId();
+        CallActionsModel actionsModel;
+        switch (id) {
+            case R.id.btnACcept:
+            case R.id.btnStart:
+                acceptCall(position);
+                break;
+            case R.id.btnReject:
+            case R.id.btnCancel:
+                rejectCall(position);
+                break;
+            case R.id.btnDefer:
+                deferCall(position);
+                break;
+            case R.id.btnMessage:
+                break;
+        }
+    }
 
+    @Override
+    public void performAction(String actionType, int position) {
+        if("DISPLAY_CALL_CONNECT_ALERT".equalsIgnoreCase(actionType)) {
+            displayCallConnectAlert(position);
+        }
+    }
+
+    private void displayCallConnectAlert(int position) {
+        PendingSession pendingSession = pendingSessions.get(position);
+        CallReconnectDialog dialog = new CallReconnectDialog(getContext(), pendingSession);
+        dialog.onReconnect(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        dialog.onCancel(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rejectCall(position);
+            }
+        });
+        dialog.show();
+    }
+
+    private void deferCall(int position) {
+        Intent intent = new Intent(getContext(), DeferCallActivity.class);
+        intent.putExtra("session", pendingSessions.get(position));
+        startActivity(intent);
+    }
+
+    private void rejectCall(int position) {
+        CallActionsModel actionsModel;
+        actionsModel = new CallActionsModel();
+        actionsModel.setPerformedBy(1);
+        actionsModel.setPerformedAction("Rejected");
+        actionsModel.setSpecialistRequestId(pendingSessions.get(position).getId());
+        VeeDocRepository.getInstance().rejectCall(actionsModel, new RetrofitCallbackListener<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response, int requestID) {
+                if(response.isSuccessful()) {
+                    Toast.makeText(getContext(), "Session closed", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t, int requestID) {
+
+            }
+        }, 0);
+    }
+
+    private void acceptCall(int position) {
+        CallActionsModel actionsModel;
+        actionsModel = new CallActionsModel();
+        actionsModel.setPerformedBy(1);
+        actionsModel.setPerformedAction("Accepted");
+        actionsModel.setSpecialistRequestId(pendingSessions.get(position).getId());
+        VeeDocRepository.getInstance().acceptCall(actionsModel, new RetrofitCallbackListener<SessionInfo>() {
+            @Override
+            public void onResponse(Call<SessionInfo> call, Response<SessionInfo> response, int requestID) {
+                if(response.isSuccessful()) {
+                    SessionInfo apiResponse = response.body();
+                    Intent intent = new Intent(getContext(), KartCallActivity.class);
+                    intent.putExtra("session", apiResponse);
+                    getContext().startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SessionInfo> call, Throwable t, int requestID) {
+
+            }
+        }, 0);
     }
 }

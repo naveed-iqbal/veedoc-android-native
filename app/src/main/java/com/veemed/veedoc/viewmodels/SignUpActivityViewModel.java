@@ -6,17 +6,16 @@ import androidx.lifecycle.ViewModel;
 import com.veemed.veedoc.utils.ReturnResponse;
 import com.veemed.veedoc.utils.Utility;
 import com.veemed.veedoc.models.User;
-import com.veemed.veedoc.repositories.VeeDocUserRepository;
-import com.veemed.veedoc.webservices.RetrofitCallbackListener;
+import com.veemed.veedoc.repositories.VeeDocRepository;
 import com.veemed.veedoc.webservices.UserAPIResponse;
 
 public class SignUpActivityViewModel extends ViewModel {
-    private VeeDocUserRepository userRepo;
+    private VeeDocRepository userRepo;
     private String email, mobileNumber, credentials, title, password, confirmPassword, lastName, firstName;
     public MutableLiveData<ReturnResponse<String>> signUpInitResponse = new MutableLiveData<>();
     private static final int INIT_SIGN_UP_REQUEST = 1;
     public SignUpActivityViewModel() {
-        userRepo = VeeDocUserRepository.getInstance();
+        userRepo = VeeDocRepository.getInstance();
     }
 
 

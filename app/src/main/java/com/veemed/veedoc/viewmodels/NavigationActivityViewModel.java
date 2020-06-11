@@ -1,35 +1,35 @@
 package com.veemed.veedoc.viewmodels;
 
-import android.content.Context;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
+import com.veemed.veedoc.models.Conversation;
 import com.veemed.veedoc.models.SpecialistInformation;
 import com.veemed.veedoc.models.User;
-import com.veemed.veedoc.repositories.VeeDocUserRepository;
+import com.veemed.veedoc.repositories.VeeDocRepository;
 import com.veemed.veedoc.utils.ReturnResponse;
 import com.veemed.veedoc.webservices.RetrofitCallbackListener;
 import com.veemed.veedoc.webservices.UserAPIResponse;
-import com.veemed.veedoc.webservices.VeeDocRetrofitDataSource;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
 public class NavigationActivityViewModel extends ViewModel {
 
-    VeeDocUserRepository userRepo;
+    VeeDocRepository userRepo;
     MutableLiveData<Boolean> centerTextViewVisible = new MutableLiveData<>();
     MutableLiveData<String> toolbarTitle = new MutableLiveData<>();
     MutableLiveData<String> toolbarSubtitle = new MutableLiveData<>();
     MutableLiveData<ReturnResponse<User>> userData = new MutableLiveData<>();
+    MutableLiveData<List<Conversation>> conversations = new MutableLiveData<>();
 
-    private static VeeDocUserRepository repoInstance;
+    private static VeeDocRepository repoInstance;
 
     public NavigationActivityViewModel() {
-        userRepo = VeeDocUserRepository.getInstance();
+        userRepo = VeeDocRepository.getInstance();
     } //TODO: Add constructor
 
     public MutableLiveData<ReturnResponse<User>> fetchUser() {
@@ -140,6 +140,26 @@ public class NavigationActivityViewModel extends ViewModel {
                            String state, String country, String city, String otherAddress) {
         userRepo.updateUser(fullName, email, mobileNumber, zipCode, address, deaNumber, npiNumber,
                 specialityName, practiceGroup, state, country, city, otherAddress);
+    }
+
+    public MutableLiveData<List<Conversation>> getConversationsLiveData() {
+        return conversations;
+    }
+
+    public void fetchConversations() {
+        userRepo.getConversations(new RetrofitCallbackListener<List<Conversation>>() {
+            @Override
+            public void onResponse(Call<List<Conversation>> call, Response<List<Conversation>> response, int requestID) {
+                if(response.isSuccessful()) {
+                    conversations.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Conversation>> call, Throwable t, int requestID) {
+
+            }
+        }, 0);
     }
 
 }

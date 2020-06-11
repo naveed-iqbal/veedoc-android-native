@@ -3,7 +3,9 @@ package com.veemed.veedoc.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PendingSession {
+import java.io.Serializable;
+
+public class PendingSession implements Serializable {
 
     @SerializedName("id")
     @Expose

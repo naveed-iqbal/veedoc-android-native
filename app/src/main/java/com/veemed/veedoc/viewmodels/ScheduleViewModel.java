@@ -11,7 +11,7 @@ import com.veemed.veedoc.models.event.OffDay;
 import com.veemed.veedoc.models.event.OffDayModel;
 import com.veemed.veedoc.models.event.OtherEvent;
 import com.veemed.veedoc.models.event.ScheduledEvent;
-import com.veemed.veedoc.repositories.VeeDocUserRepository;
+import com.veemed.veedoc.repositories.VeeDocRepository;
 import com.veemed.veedoc.webservices.RetrofitCallbackListener;
 
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class ScheduleViewModel extends NavigationActivityViewModel {
     }
 
     public void fetchEvents(int year, int month) {
-        VeeDocUserRepository.getInstance().getEvents(year, month, new RetrofitCallbackListener<List<ScheduledEvent>>() {
+        VeeDocRepository.getInstance().getEvents(year, month, new RetrofitCallbackListener<List<ScheduledEvent>>() {
             @Override
             public void onResponse(Call<List<ScheduledEvent>> call, Response<List<ScheduledEvent>> response, int requestID) {
                 if(response.isSuccessful()) {
@@ -73,7 +73,7 @@ public class ScheduleViewModel extends NavigationActivityViewModel {
     }
 
     private void fetchOffDays(int year, int month) {
-        VeeDocUserRepository.getInstance().getOffDays(year, month, new RetrofitCallbackListener<List<OffDayModel>>() {
+        VeeDocRepository.getInstance().getOffDays(year, month, new RetrofitCallbackListener<List<OffDayModel>>() {
             @Override
             public void onResponse(Call<List<OffDayModel>> call, Response<List<OffDayModel>> response, int requestID) {
                 if(response.isSuccessful()) {
@@ -113,7 +113,7 @@ public class ScheduleViewModel extends NavigationActivityViewModel {
     }
 
     private void fetchOffDaysOnly(int year, int month) {
-        VeeDocUserRepository.getInstance().getOffDays(year, month, new RetrofitCallbackListener<List<OffDayModel>>() {
+        VeeDocRepository.getInstance().getOffDays(year, month, new RetrofitCallbackListener<List<OffDayModel>>() {
             @Override
             public void onResponse(Call<List<OffDayModel>> call, Response<List<OffDayModel>> response, int requestID) {
                 if(response.isSuccessful()) {

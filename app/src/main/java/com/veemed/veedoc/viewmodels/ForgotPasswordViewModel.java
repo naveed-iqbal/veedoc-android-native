@@ -3,13 +3,13 @@ package com.veemed.veedoc.viewmodels;
 import androidx.lifecycle.ViewModel;
 
 import com.veemed.veedoc.utils.Utility;
-import com.veemed.veedoc.repositories.VeeDocUserRepository;
+import com.veemed.veedoc.repositories.VeeDocRepository;
 
 public class ForgotPasswordViewModel extends ViewModel {
-    private VeeDocUserRepository userRepo;
+    private VeeDocRepository userRepo;
 
     public ForgotPasswordViewModel() {
-        userRepo = VeeDocUserRepository.getInstance();
+        userRepo = VeeDocRepository.getInstance();
     }
 
     public String getErrorToast(String email){

@@ -14,6 +14,9 @@ public class CallActionsModel {
     @SerializedName("performedBy")
     @Expose
     private Integer performedBy;
+    @SerializedName("comments")
+    @Expose
+    private String comments;
 
     public Integer getSpecialistRequestId() {
         return specialistRequestId;
@@ -39,4 +42,11 @@ public class CallActionsModel {
         this.performedBy = performedBy;
     }
 
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
 }

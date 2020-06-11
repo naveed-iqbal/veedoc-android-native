@@ -185,5 +185,14 @@
     <string name="can_not_be_empty">Can not be empty</string>
     <string name="select_one_state">Select at least 1 State</string>
     <string name="invalid_value">Invalid value</string>
+    <string name="message">Message</string>
+    <string name="send_message">Send Message</string>
+    <string name="message_can_not_be_empty">Message can not be empty</string>
+    <string name="reconnect">Reconnect</string>
+    <string name="start">Start</string>
+    <string name="cancel">Cancel</string>
+    <string name="defer">Defer</string>
+    <string name="reject">Reject</string>
+    <string name="accept">Accept</string>
 
 </resources>

@@ -17,7 +17,7 @@ import com.opentok.android.Stream;
 import com.opentok.android.Subscriber;
 import com.veemed.veedoc.R;
 import com.veemed.veedoc.models.SessionInfo;
-import com.veemed.veedoc.repositories.VeeDocUserRepository;
+import com.veemed.veedoc.repositories.VeeDocRepository;
 import com.veemed.veedoc.utils.Toast;
 import com.veemed.veedoc.webservices.RetrofitCallbackListener;
 
@@ -72,7 +72,7 @@ public class KartCallActivity extends AppCompatActivity implements  Session.Sess
         mPublisherViewContainer = (FrameLayout)findViewById(R.id.publisher_container);
         mSubscriberViewContainer = (FrameLayout)findViewById(R.id.subscriber_container);
 
-        VeeDocUserRepository userRepo = VeeDocUserRepository.getInstance();
+        VeeDocRepository userRepo = VeeDocRepository.getInstance();
 
 
         SessionInfo sessionInfo = (SessionInfo) getIntent().getSerializableExtra("session");

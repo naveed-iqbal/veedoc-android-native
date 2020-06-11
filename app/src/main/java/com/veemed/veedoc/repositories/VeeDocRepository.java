@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.veemed.CallActionsModel;
-import com.veemed.veedoc.models.CallAcceptAPIResponse;
 import com.veemed.veedoc.models.ChangePassword;
+import com.veemed.veedoc.models.Conversation;
+import com.veemed.veedoc.models.DeferResponseModel;
+import com.veemed.veedoc.models.Message;
+import com.veemed.veedoc.models.NewMessageBody;
 import com.veemed.veedoc.models.PendingSession;
 import com.veemed.veedoc.models.event.CalendarEvent;
 import com.veemed.veedoc.models.Endpoint;
@@ -31,19 +34,19 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class VeeDocUserRepository {
+public class VeeDocRepository {
 
     private VeeDocRetrofitDataSource retrofitDataSource;
-    private static VeeDocUserRepository repoInstance;
+    private static VeeDocRepository repoInstance;
 
-    public VeeDocUserRepository() {
+    public VeeDocRepository() {
         retrofitDataSource = VeeDocRetrofitDataSource.getInstance();
     }
 
     // Singleton
-    public static synchronized VeeDocUserRepository getInstance() {
+    public static synchronized VeeDocRepository getInstance() {
         if (repoInstance == null) {
-            repoInstance = new VeeDocUserRepository();
+            repoInstance = new VeeDocRepository();
         }
 
         return repoInstance;
@@ -220,8 +223,27 @@ public class VeeDocUserRepository {
         retrofitDataSource.rejectCall(actionsModel, callbackListener, requestID);
     }
 
+    public void deferCall(CallActionsModel actionsModel, RetrofitCallbackListener<Conversation> callbackListener, int requestID) {
+        retrofitDataSource.deferCall(actionsModel, callbackListener, requestID);
+    }
+
     public void acceptCall(CallActionsModel actionsModel, RetrofitCallbackListener<SessionInfo> callbackListener, int requestID) {
         retrofitDataSource.acceptCall(actionsModel, callbackListener, requestID);
+    }
+
+    public void getConversations(RetrofitCallbackListener<List<Conversation>> callbackListener, int requestID) {
+        retrofitDataSource.getConversations(callbackListener, requestID);
+    }
+
+    public void getMessages(int messageSessionId,
+                           int pageIndex,
+                           int length,
+                           boolean unread,RetrofitCallbackListener<List<Message>> callbackListener, int requestID) {
+        retrofitDataSource.getMessages(messageSessionId, pageIndex, length, unread, callbackListener, requestID);
+    }
+
+    public void sendNewMessage(NewMessageBody messageBody, RetrofitCallbackListener<Void> callbackListener, int requestID) {
+        retrofitDataSource.sendNewMessage(messageBody, callbackListener, requestID);
     }
 
     public void changePassword(ChangePassword changePassword, RetrofitCallbackListener<Void> callbackListener, int requestID) {

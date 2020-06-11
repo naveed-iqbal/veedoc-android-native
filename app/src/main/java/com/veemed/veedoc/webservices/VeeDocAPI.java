@@ -3,8 +3,13 @@ package com.veemed.veedoc.webservices;
 import com.veemed.CallActionsModel;
 import com.veemed.veedoc.models.CallAcceptAPIResponse;
 import com.veemed.veedoc.models.ChangePassword;
+import com.veemed.veedoc.models.ConnectedCallPingModel;
+import com.veemed.veedoc.models.Conversation;
+import com.veemed.veedoc.models.DeferResponseModel;
 import com.veemed.veedoc.models.Endpoint;
 import com.veemed.veedoc.models.EndpointStatus;
+import com.veemed.veedoc.models.Message;
+import com.veemed.veedoc.models.NewMessageBody;
 import com.veemed.veedoc.models.PendingSession;
 import com.veemed.veedoc.models.UserAPIRequest;
 import com.veemed.veedoc.models.event.OffDayModel;
@@ -106,10 +111,33 @@ public interface VeeDocAPI {
     @PUT("/platform/api/specialist/request/action")
     public Call<Void> callActionReject(@Body CallActionsModel actionsModel, @Header("Authorization") String token);
 
+    @PUT("/platform/api/specialist/request/action")
+    public Call<Conversation> callActionDefer(@Body CallActionsModel actionsModel, @Header("Authorization") String token);
+
+    @PUT("/platform/api/specialist/request/action")
+    public Call<Conversation> pingConnectedCallStatus(@Body ConnectedCallPingModel callPingModel, @Header("Authorization") String token);
+
+
     @PUT("/platform/api/user/password/change")
     public Call<Void> changePassword(@Body ChangePassword changePassword, @Header("Authorization") String token);
 
     @PUT("/platform/api/user/registration/complete")
     public Call<String> completeRegistration(@Body UserAPIRequest userAPIResponse, @Header("Authorization") String token);
+
+
+    // Messages
+    @POST("/platform/api/requests/message/send")
+    public Call<Void> sendNewMessage(@Body NewMessageBody messageBody, @Header("Authorization") String token);
+
+    @GET("/platform/api/requests/deferred/last/message")
+    public Call<List<Conversation>> getConversations(@Header("Authorization") String token);
+
+    @GET("/platform/api/requests/{messageSessionId}/messages/{pageIndex}/{length}/{unread}")
+    public Call<List<Message>> getMessages(
+            @Path("messageSessionId") int messageSessionId,
+            @Path("pageIndex") int pageIndex,
+            @Path("length") int length,
+            @Path("unread") boolean unread,
+            @Header("Authorization") String token);
 
 }

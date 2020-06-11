@@ -1,8 +1,6 @@
 package com.veemed.veedoc.fragments.signup;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +19,7 @@ import com.veemed.veedoc.models.LicencedState;
 import com.veemed.veedoc.models.SpecialistDetail;
 import com.veemed.veedoc.models.Speciality;
 import com.veemed.veedoc.models.State;
-import com.veemed.veedoc.repositories.VeeDocUserRepository;
+import com.veemed.veedoc.repositories.VeeDocRepository;
 import com.veemed.veedoc.webservices.RetrofitCallbackListener;
 
 import java.util.ArrayList;
@@ -71,8 +69,8 @@ public class SpecialistInformationFragment extends Fragment implements View.OnCl
         b.btnPrevious.setOnClickListener(this);
         b.btnComplete.setOnClickListener(this);
 
-        VeeDocUserRepository.getInstance().getStates(statesListener, 0);
-        VeeDocUserRepository.getInstance().getSpecialities(specialitiesListener, 0);
+        VeeDocRepository.getInstance().getStates(statesListener, 0);
+        VeeDocRepository.getInstance().getSpecialities(specialitiesListener, 0);
 
         return b.getRoot();
     }

@@ -77,6 +77,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(UserAPIResponse userAPIResponse) {
                 if(userAPIResponse.getUserStatus().equalsIgnoreCase("Completed")) {
+                    Utility.user = userAPIResponse;
                     Intent intent = new Intent(LoginActivity.this, NavigationBarActivity.class);
                     startActivity(intent);
                 } else if(userAPIResponse.getUserStatus().equalsIgnoreCase("PendingForApproval")) {
