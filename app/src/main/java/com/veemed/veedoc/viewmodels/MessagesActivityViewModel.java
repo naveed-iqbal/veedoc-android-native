@@ -19,7 +19,12 @@ import retrofit2.Response;
 public class MessagesActivityViewModel extends ViewModel {
 
     private MutableLiveData<List<Message>> messagesViewModel = new MutableLiveData<>();
+    private MutableLiveData<List<Message>> pingMessagesViewModel = new MutableLiveData<>();
     private MutableLiveData<Message> messageViewModel = new MutableLiveData<>();
+
+    public MutableLiveData<List<Message>> getPingMessagesLiveData() {
+        return pingMessagesViewModel;
+    }
 
     public MutableLiveData<List<Message>> getMessagesLiveData() {
         return messagesViewModel;
@@ -35,6 +40,22 @@ public class MessagesActivityViewModel extends ViewModel {
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response, int requestID) {
                 if(response.isSuccessful()) {
                     messagesViewModel.setValue(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t, int requestID) {
+
+            }
+        }, 0);
+    }
+
+    public void fetchPingMessages(int conversationId) {
+        VeeDocRepository.getInstance().pingMessages(conversationId, new RetrofitCallbackListener<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response, int requestID) {
+                if(response.isSuccessful()) {
+                    pingMessagesViewModel.setValue(response.body());
                 }
             }
 

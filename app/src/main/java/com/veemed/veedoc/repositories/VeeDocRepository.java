@@ -242,6 +242,10 @@ public class VeeDocRepository {
         retrofitDataSource.getMessages(messageSessionId, pageIndex, length, unread, callbackListener, requestID);
     }
 
+    public void pingMessages(int messageSessionId, RetrofitCallbackListener<List<Message>> callbackListener, int requestID) {
+        retrofitDataSource.pingMessages(messageSessionId, callbackListener, requestID);
+    }
+
     public void sendNewMessage(NewMessageBody messageBody, RetrofitCallbackListener<Void> callbackListener, int requestID) {
         retrofitDataSource.sendNewMessage(messageBody, callbackListener, requestID);
     }

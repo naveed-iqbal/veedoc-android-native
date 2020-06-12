@@ -194,5 +194,6 @@
     <string name="defer">Defer</string>
     <string name="reject">Reject</string>
     <string name="accept">Accept</string>
+    <string name="conversation_null">Conversation is null</string>
 
 </resources>

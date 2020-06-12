@@ -17,6 +17,8 @@ import com.veemed.veedoc.adapters.MessagesAdapter;
 import com.veemed.veedoc.adapters.RecyclerViewListener;
 import com.veemed.veedoc.models.Conversation;
 import com.veemed.veedoc.models.Message;
+import com.veemed.veedoc.utils.Toast;
+import com.veemed.veedoc.utils.Utility;
 import com.veemed.veedoc.viewmodels.MessagesActivityViewModel;
 
 import java.util.ArrayList;
@@ -33,7 +35,7 @@ public class MessagesActivity extends AppCompatActivity implements RecyclerViewL
     private MessagesAdapter adapter;
     private LinearLayoutManager layoutManager;
     private Handler handler = new Handler();
-    private List<Message> messagesList = new ArrayList<>();
+    private List<Message> messages;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +43,12 @@ public class MessagesActivity extends AppCompatActivity implements RecyclerViewL
         setContentView(R.layout.activity_messages);
 
         conversation = (Conversation) getIntent().getSerializableExtra("conversation");
-        init();
-
+        if(conversation == null) {
+            Toast.makeText(this, getResources().getString(R.string.conversation_null), Toast.LENGTH_LONG).show();
+            finish();
+        } else {
+            init();
+        }
     }
 
     private void init() {
@@ -55,23 +61,63 @@ public class MessagesActivity extends AppCompatActivity implements RecyclerViewL
     }
 
     private void fetchData() {
+        // First time messages
         viewModel.getMessagesLiveData().observe(this, new Observer<List<Message>>() {
             @Override
             public void onChanged(List<Message> messages) {
-                adapter.updateEndpoints(messages);
-                rvMessages.scrollToPosition(messages.size());
+                updateAdapter(messages);
+                startScheduledRepeatRefresh();
+            }
+        });
+        viewModel.fetchMessages(conversation.getRequestMsgSessionId());
+
+        // Pinged messages
+        viewModel.getPingMessagesLiveData().observe(this, new Observer<List<Message>>() {
+            @Override
+            public void onChanged(List<Message> messages) {
+                updateAdapter(messages);
             }
         });
 
-        viewModel.fetchMessages(conversation.getRequestMsgSessionId());
-
-
+        // sent message
         viewModel.getMessageLiveData().observe(this, new Observer<Message>() {
             @Override
             public void onChanged(Message message) {
                 adapter.updateEndpoints(message);
+                etNewMessage.setText("");
+                rvMessages.scrollToPosition(messages.size() - 1);
             }
         });
+
+
+    }
+
+    private void updateAdapter(List<Message> newMessages) {
+
+        if(this.messages == null) {
+            this.messages = newMessages;
+
+        } else {
+            List<Message> nonUniqueMessages = new ArrayList();
+            for(Message m: this.messages) {
+                for(int i = 0; i<newMessages.size(); i++) {
+                    Message n = newMessages.get(i);
+                    if(m.getId()!=null) {
+                        if (m.getId().equals(n.getId())) {
+                            nonUniqueMessages.add(n);
+                        }
+                    }
+                }
+            }
+
+            newMessages.removeAll(nonUniqueMessages);
+            this.messages.addAll(newMessages);
+        }
+
+        if(newMessages.size()>0) {
+            adapter.updateEndpoints(newMessages);
+            rvMessages.scrollToPosition(messages.size() - 1);
+        }
     }
 
     private void initRecyclerView() {
@@ -102,5 +148,14 @@ public class MessagesActivity extends AppCompatActivity implements RecyclerViewL
         if(!message.trim().isEmpty()) {
             viewModel.sendNewMessage(conversation.getRequestMsgSessionId(), message);
         }
+    }
+
+    private void startScheduledRepeatRefresh() {
+        handler.postDelayed(new Runnable(){
+            public void run(){
+                viewModel.fetchPingMessages(conversation.getRequestMsgSessionId());
+                handler.postDelayed(this, Utility.refreshDelay);
+            }
+        }, Utility.refreshDelay);
     }
 }

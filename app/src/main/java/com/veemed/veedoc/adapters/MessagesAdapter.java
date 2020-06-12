@@ -22,8 +22,8 @@ import java.util.List;
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHolder> {
 
     private Context context;
-    private List<Message> pendingSessions;
-    private List<Message> pendingSessionsCopy;
+    private List<Message> messages;
+    private List<Message> messagesCopy;
     private static RecyclerViewListener recyclerViewListener;
 
     public MessagesAdapter(Context context, RecyclerViewListener recyclerViewListener) {
@@ -43,18 +43,18 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         String dateStr = "";
         try {
-            Date date = Utility.SERVER_DATE_FORMAT.parse(pendingSessions.get(position).getReceivedOn());
+            Date date = Utility.SERVER_DATE_FORMAT.parse(messages.get(position).getReceivedOn());
             dateStr = Utility.APP_TIME_FORMAT.format(date);
 
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if(Utility.user.getId() == pendingSessions.get(position).getFromUserId()) {
-            holder.etMessage.setText(pendingSessions.get(position).getMessage());
+        if(Utility.user.getId() == messages.get(position).getFromUserId()) {
+            holder.etMessage.setText(messages.get(position).getMessage());
             holder.etDate.setText(dateStr);
             setViewsVisibility(holder, true);
         } else {
-            holder.etMessageReceived.setText(pendingSessions.get(position).getMessage());
+            holder.etMessageReceived.setText(messages.get(position).getMessage());
             holder.etDateReceived.setText(dateStr);
             setViewsVisibility(holder, false);
         }
@@ -86,22 +86,27 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        if (pendingSessions != null){
-            return pendingSessions.size();
+        if (messages != null){
+            return messages.size();
         }
         return 0;
     }
 
     // IDEA CREDITS: CodingWithMitch MVVM tutorial
-    public void updateEndpoints(List<Message> pendingSessions){
-        this.pendingSessions = pendingSessions;
-        pendingSessionsCopy = new ArrayList(pendingSessions);
+    public void updateEndpoints(List<Message> newMessages){
+        if(this.messages == null) {
+            this.messages = newMessages;
+            this.messagesCopy = new ArrayList(newMessages);
+        } else {
+            //this.messages.addAll(newMessages); already added from MessageActivity due to pass by reference behaviour of JAVA
+            this.messagesCopy.addAll(newMessages);
+        }
         notifyDataSetChanged(); // this is so that the adapter will update the view with new data
     }
 
     public void updateEndpoints(Message message){
-        this.pendingSessions.add(message);
-        pendingSessionsCopy.add(message);
+        this.messages.add(message);
+        messagesCopy.add(message);
         notifyDataSetChanged(); // this is so that the adapter will update the view with new data
     }
 

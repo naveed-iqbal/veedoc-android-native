@@ -3,6 +3,8 @@ package com.veemed.veedoc.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Objects;
+
 public class Message {
 
     @SerializedName("id")
@@ -13,7 +15,7 @@ public class Message {
     private Integer requestMsgSessionId;
     @SerializedName("specialistName")
     @Expose
-    private Object specialistName;
+    private String specialistName;
     @SerializedName("fromUserId")
     @Expose
     private Integer fromUserId;
@@ -55,11 +57,11 @@ public class Message {
         this.requestMsgSessionId = requestMsgSessionId;
     }
 
-    public Object getSpecialistName() {
+    public String getSpecialistName() {
         return specialistName;
     }
 
-    public void setSpecialistName(Object specialistName) {
+    public void setSpecialistName(String specialistName) {
         this.specialistName = specialistName;
     }
 

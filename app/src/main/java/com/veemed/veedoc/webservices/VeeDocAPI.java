@@ -140,4 +140,7 @@ public interface VeeDocAPI {
             @Path("unread") boolean unread,
             @Header("Authorization") String token);
 
+    @GET("/platform/api/requests/{messageSessionId}/messages/unread")
+    public Call<List<Message>> pingMessages(@Path("messageSessionId") int messageSessionId, @Header("Authorization") String token);
+
 }

@@ -3,12 +3,14 @@ package com.veemed.veedoc.utils;
 import android.content.Context;
 import android.util.Base64;
 
+import com.veemed.veedoc.models.Conversation;
 import com.veemed.veedoc.models.UserAPIRequest;
 import com.veemed.veedoc.webservices.UserAPIResponse;
 
 import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -18,6 +20,9 @@ public class Utility {
 
     public static String bearerToken = "";
     public static int refreshDelay = 3000;
+
+    // keep deferred conversations by sessionId int
+    public static HashMap<Integer, Conversation> deferredConversations = new HashMap<>();
 
     public static UserAPIResponse user;
     public static final DateFormat SERVER_DATE_FORMAT = new SimpleDateFormat("YYYY-MM-dd'T'HH:mm:ss.S");

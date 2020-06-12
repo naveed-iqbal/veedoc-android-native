@@ -23,9 +23,11 @@ import com.veemed.CallActionsModel;
 import com.veemed.veedoc.R;
 import com.veemed.veedoc.activities.DeferCallActivity;
 import com.veemed.veedoc.activities.KartCallActivity;
+import com.veemed.veedoc.activities.MessagesActivity;
 import com.veemed.veedoc.activities.widgets.CallReconnectDialog;
 import com.veemed.veedoc.adapters.PendingSessionsRecyclerViewAdapter;
 import com.veemed.veedoc.adapters.RecyclerViewListener;
+import com.veemed.veedoc.models.Conversation;
 import com.veemed.veedoc.models.PendingSession;
 import com.veemed.veedoc.models.SessionInfo;
 import com.veemed.veedoc.repositories.VeeDocRepository;
@@ -135,8 +137,20 @@ public class CurrentSessionsInnerFragment extends Fragment implements RecyclerVi
                 deferCall(position);
                 break;
             case R.id.btnMessage:
+                openDeferMessages(position);
                 break;
         }
+    }
+
+    private void openDeferMessages(int position) {
+        //get the conversation from static deferredConversations variable from Utility.java class
+        PendingSession pendingSession = pendingSessions.get(position);
+        Conversation conversation = Utility.deferredConversations.get(pendingSession.getId());
+
+        // Start MessagesActivity for this pendingSession
+        Intent intent = new Intent(getContext(), MessagesActivity.class);
+        intent.putExtra("conversation", conversation);
+        startActivity(intent);
     }
 
     @Override

@@ -425,6 +425,24 @@ public class VeeDocRetrofitDataSource {
         });
     }
 
+    public void pingMessages(
+            int messageSessionId,
+            RetrofitCallbackListener<List<Message>> callbackListener, int requestID){
+
+        Call<List<Message>> response =  RetrofitBuilder.getVeeDocAPI().pingMessages(messageSessionId, Utility.bearerToken);
+        response.enqueue(new Callback<List<Message>>() {
+            @Override
+            public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
+                callbackListener.onResponse(call, response, requestID);
+            }
+
+            @Override
+            public void onFailure(Call<List<Message>> call, Throwable t) {
+                callbackListener.onFailure(call, t, requestID);
+            }
+        });
+    }
+
     public void sendNewMessage(NewMessageBody messageBody, RetrofitCallbackListener<Void> callbackListener, int requestID){
 
         Call<Void> response =  RetrofitBuilder.getVeeDocAPI().sendNewMessage(messageBody, Utility.bearerToken);

@@ -14,6 +14,7 @@ import com.veemed.veedoc.models.Conversation;
 import com.veemed.veedoc.models.DeferResponseModel;
 import com.veemed.veedoc.models.PendingSession;
 import com.veemed.veedoc.repositories.VeeDocRepository;
+import com.veemed.veedoc.utils.Utility;
 import com.veemed.veedoc.webservices.RetrofitCallbackListener;
 
 import retrofit2.Call;
@@ -24,7 +25,7 @@ public class DeferCallActivity extends AppCompatActivity {
 
     private EditText etMessage;
     private Button btnSend;
-    PendingSession session;
+    private PendingSession session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,7 @@ public class DeferCallActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Conversation> call, Response<Conversation> response, int requestID) {
                     if(response.isSuccessful()) {
-                        performPostAction();
+                        performPostAction(response.body());
                     }
                 }
 
@@ -70,7 +71,8 @@ public class DeferCallActivity extends AppCompatActivity {
 
     }
 
-    private void performPostAction() {
+    private void performPostAction(Conversation conversation) {
+        Utility.deferredConversations.put(session.getId(), conversation);
         finish();
     }
 }
