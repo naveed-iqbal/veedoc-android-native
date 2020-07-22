@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@id/rlMain"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10.0dip">
+
+        <ImageView
+            android:id="@id/etSpecialityNameTitle"
+            android:layout_width="48.0dip"
+            android:layout_height="48.0dip"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16.0dip"
+            android:background="@color/colorAccent"
+            android:clickable="false"
+            android:text="Neurology"
+            android:textColor="@color/dim_gray"
+            android:textSize="20.0sp"
+            android:textStyle="bold"
+            android:tint="@color/white"
+            app:srcCompat="@drawable/ic_user" />
+
+        <CheckBox
+            android:id="@+id/cbName"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerVertical="true"
+            android:button="@null"
+            android:drawableRight="?android:listChoiceIndicatorMultiple"
+            android:gravity="center_vertical"
+            android:paddingStart="56.0dip"
+            android:text="User Name"
+            android:textSize="18.0sp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_centerVertical="true"
+            android:button="@null"
+            android:drawableEnd="@drawable/ic_arow_next"
+            android:gravity="center_vertical"
+            android:paddingStart="56.0dip"
+            android:text="User Name"
+            android:textSize="18.0sp" />
+    </RelativeLayout>
+</LinearLayout>

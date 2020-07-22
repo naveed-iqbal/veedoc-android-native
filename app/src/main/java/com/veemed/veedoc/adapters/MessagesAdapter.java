@@ -31,6 +31,11 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
         this.recyclerViewListener = recyclerViewListener;
     }
 
+
+    private void markMessageRead(int paramInt) {
+        recyclerViewListener.performAction("mark_read", paramInt);
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -58,6 +63,8 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.ViewHo
             holder.etDateReceived.setText(dateStr);
             setViewsVisibility(holder, false);
         }
+
+        markMessageRead(position);
     }
 
     private void setViewsVisibility(ViewHolder holder, boolean isSent) {

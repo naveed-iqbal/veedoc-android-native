@@ -3,6 +3,7 @@ package com.veemed.veedoc.viewmodels;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.veemed.veedoc.models.MarkMessagesReadRequestModel;
 import com.veemed.veedoc.models.Message;
 import com.veemed.veedoc.models.NewMessageBody;
 import com.veemed.veedoc.repositories.VeeDocRepository;
@@ -90,5 +91,16 @@ public class MessagesActivityViewModel extends ViewModel {
 
             }
         }, 0);
+    }
+
+    public void markRead(Integer paramInteger) {
+        MarkMessagesReadRequestModel markMessagesReadRequestModel = new MarkMessagesReadRequestModel(new Integer[] { paramInteger });
+        VeeDocRepository.getInstance().markMessageRead(markMessagesReadRequestModel, new RetrofitCallbackListener<Void>() {
+            public void onFailure(Call<Void> param1Call, Throwable param1Throwable, int param1Int) {}
+
+            public void onResponse(Call<Void> param1Call, Response<Void> param1Response, int param1Int) {
+                param1Response.isSuccessful();
+            }
+        },  0);
     }
 }

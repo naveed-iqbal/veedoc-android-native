@@ -7,9 +7,12 @@ import com.veemed.CallActionsModel;
 import com.veemed.veedoc.models.ChangePassword;
 import com.veemed.veedoc.models.Conversation;
 import com.veemed.veedoc.models.DeferResponseModel;
+import com.veemed.veedoc.models.MarkMessagesReadRequestModel;
 import com.veemed.veedoc.models.Message;
 import com.veemed.veedoc.models.NewMessageBody;
 import com.veemed.veedoc.models.PendingSession;
+import com.veemed.veedoc.models.SupportGroupModel;
+import com.veemed.veedoc.models.UserAPIRequest;
 import com.veemed.veedoc.models.event.CalendarEvent;
 import com.veemed.veedoc.models.Endpoint;
 import com.veemed.veedoc.models.EndpointStatus;
@@ -246,6 +249,10 @@ public class VeeDocRepository {
         retrofitDataSource.pingMessages(messageSessionId, callbackListener, requestID);
     }
 
+    public void markMessageRead(MarkMessagesReadRequestModel paramMarkMessagesReadRequestModel, RetrofitCallbackListener<Void> paramRetrofitCallbackListener, int paramInt) {
+        this.retrofitDataSource.markMessageRead(paramMarkMessagesReadRequestModel, paramRetrofitCallbackListener, paramInt);
+    }
+
     public void sendNewMessage(NewMessageBody messageBody, RetrofitCallbackListener<Void> callbackListener, int requestID) {
         retrofitDataSource.sendNewMessage(messageBody, callbackListener, requestID);
     }
@@ -350,5 +357,19 @@ public class VeeDocRepository {
         retrofitDataSource.resetLoginStatusBoolean();
     }
 
+    public void getSupportGroups(RetrofitCallbackListener<List<SupportGroupModel>> paramRetrofitCallbackListener, int paramInt) {
+        this.retrofitDataSource.getSupportGroups(paramRetrofitCallbackListener, paramInt);
+    }
 
+    public void getChatUsers(int paramInt1, int paramInt2, RetrofitCallbackListener<List<UserAPIRequest>> paramRetrofitCallbackListener, int paramInt3) {
+        this.retrofitDataSource.getChatUsers(paramInt1, paramInt2, paramRetrofitCallbackListener, paramInt3);
+    }
+
+    public void getMessageSessionInfoBySessionId(int paramInt1, RetrofitCallbackListener<Conversation> paramRetrofitCallbackListener, int paramInt2) {
+        this.retrofitDataSource.getMessageSessionInfoBySessionId(paramInt1, paramRetrofitCallbackListener, paramInt2);
+    }
+
+    public void reconnectCall(int paramInt1, RetrofitCallbackListener<SessionInfo> paramRetrofitCallbackListener, int paramInt2) {
+        this.retrofitDataSource.reconnectCall(paramInt1, paramRetrofitCallbackListener, paramInt2);
+    }
 }

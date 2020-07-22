@@ -11,9 +11,11 @@ import com.veemed.veedoc.models.ChangePassword;
 import com.veemed.veedoc.models.Conversation;
 import com.veemed.veedoc.models.DeferResponseModel;
 import com.veemed.veedoc.models.EndpointStatus;
+import com.veemed.veedoc.models.MarkMessagesReadRequestModel;
 import com.veemed.veedoc.models.Message;
 import com.veemed.veedoc.models.NewMessageBody;
 import com.veemed.veedoc.models.PendingSession;
+import com.veemed.veedoc.models.SupportGroupModel;
 import com.veemed.veedoc.models.UserAPIRequest;
 import com.veemed.veedoc.models.event.OffDayModel;
 import com.veemed.veedoc.models.SessionInfo;
@@ -443,6 +445,19 @@ public class VeeDocRetrofitDataSource {
         });
     }
 
+
+    public void markMessageRead(MarkMessagesReadRequestModel paramMarkMessagesReadRequestModel, final RetrofitCallbackListener<Void> callbackListener, final int requestID) {
+        RetrofitBuilder.getVeeDocAPI().markMessageRead(paramMarkMessagesReadRequestModel, Utility.bearerToken).enqueue(new Callback<Void>() {
+            public void onFailure(Call<Void> param1Call, Throwable param1Throwable) {
+                callbackListener.onFailure(param1Call, param1Throwable, requestID);
+            }
+
+            public void onResponse(Call<Void> param1Call, Response<Void> param1Response) {
+                callbackListener.onResponse(param1Call, param1Response, requestID);
+            }
+        });
+    }
+
     public void sendNewMessage(NewMessageBody messageBody, RetrofitCallbackListener<Void> callbackListener, int requestID){
 
         Call<Void> response =  RetrofitBuilder.getVeeDocAPI().sendNewMessage(messageBody, Utility.bearerToken);
@@ -576,6 +591,54 @@ public class VeeDocRetrofitDataSource {
             public void onFailure(Call<UserAPIResponse> call, Throwable t) {
                 callbackListener.onFailure(call, t, requestID);
                 Log.e(TAG, "onFailureGettingUser: " + t.getMessage());
+            }
+        });
+    }
+
+    public void getSupportGroups(final RetrofitCallbackListener<List<SupportGroupModel>> callbackListener, final int requestID) {
+        RetrofitBuilder.getVeeDocAPI().getSupportGroups(Utility.bearerToken).enqueue(new Callback<List<SupportGroupModel>>() {
+            public void onFailure(Call<List<SupportGroupModel>> param1Call, Throwable param1Throwable) {
+                callbackListener.onFailure(param1Call, param1Throwable, requestID);
+            }
+
+            public void onResponse(Call<List<SupportGroupModel>> param1Call, Response<List<SupportGroupModel>> param1Response) {
+                callbackListener.onResponse(param1Call, param1Response, requestID);
+            }
+        });
+    }
+
+    public void getChatUsers(int paramInt1, int paramInt2, final RetrofitCallbackListener<List<UserAPIRequest>> callbackListener, final int requestID) {
+        RetrofitBuilder.getVeeDocAPI().getChatUsers(paramInt1, paramInt2, Utility.bearerToken).enqueue(new Callback<List<UserAPIRequest>>() {
+            public void onFailure(Call<List<UserAPIRequest>> param1Call, Throwable param1Throwable) {
+                callbackListener.onFailure(param1Call, param1Throwable, requestID);
+            }
+
+            public void onResponse(Call<List<UserAPIRequest>> param1Call, Response<List<UserAPIRequest>> param1Response) {
+                callbackListener.onResponse(param1Call, param1Response, requestID);
+            }
+        });
+    }
+
+    public void getMessageSessionInfoBySessionId(int paramInt1, final RetrofitCallbackListener<Conversation> callbackListener, final int requestID) {
+        RetrofitBuilder.getVeeDocAPI().getMessageSessionInfoBySessionId(paramInt1, Utility.bearerToken).enqueue(new Callback<Conversation>() {
+            public void onFailure(Call<Conversation> param1Call, Throwable param1Throwable) {
+                callbackListener.onFailure(param1Call, param1Throwable, requestID);
+            }
+
+            public void onResponse(Call<Conversation> param1Call, Response<Conversation> param1Response) {
+                callbackListener.onResponse(param1Call, param1Response, requestID);
+            }
+        });
+    }
+
+    public void reconnectCall(int paramInt1, final RetrofitCallbackListener<SessionInfo> callbackListener, final int requestID) {
+        RetrofitBuilder.getVeeDocAPI().callActionReconnect(paramInt1, Utility.bearerToken).enqueue(new Callback<SessionInfo>() {
+            public void onFailure(Call<SessionInfo> param1Call, Throwable param1Throwable) {
+                callbackListener.onFailure(param1Call, param1Throwable, requestID);
+            }
+
+            public void onResponse(Call<SessionInfo> param1Call, Response<SessionInfo> param1Response) {
+                callbackListener.onResponse(param1Call, param1Response, requestID);
             }
         });
     }

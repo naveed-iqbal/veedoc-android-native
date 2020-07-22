@@ -96,7 +96,7 @@ public class PendingSessionsRecyclerViewAdapter extends RecyclerView.Adapter<Pen
     }
 
     private void displayCallConnectAlter(int position) {
-        recyclerViewListener.performAction("DISPLAY_CALL_CONNECT_ALERT", position);
+        recyclerViewListener.performAction("DISPLAY_CALL_RECONNECT_ALERT", position);
     }
 
 

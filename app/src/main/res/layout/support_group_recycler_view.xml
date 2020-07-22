@@ -19,56 +19,26 @@
             android:layout_marginEnd="16.0dip"
             android:background="@color/colorAccent"
             android:clickable="false"
-            android:padding="5.0dip"
             android:text="Neurology"
             android:textColor="@color/dim_gray"
             android:textSize="20.0sp"
             android:textStyle="bold"
             android:tint="@color/white"
-            app:srcCompat="@drawable/ic_convesation" />
+            app:srcCompat="@drawable/ic_user" />
 
-        <LinearLayout
-            android:id="@+id/llMessage"
+        <TextView
+            android:id="@id/tvName"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/etSpecialityNameTitle"
+            android:button="@null"
             android:clickable="false"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/etFacilityName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:text="@string/last_session"
-                android:textColor="@color/dim_gray"
-                android:textSize="20.0sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/etName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:text="date"
-                android:textColor="@color/dim_gray"
-                android:textSize="18.0sp" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/etTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/ivNext"
-            android:clickable="false"
-            android:text="date"
-            android:textColor="@color/dim_gray"
+            android:text="User Name"
             android:textSize="18.0sp" />
 
         <ImageView
-            android:id="@+id/ivNext"
+            android:id="@id/ivNext"
             android:layout_width="32.0dip"
             android:layout_height="32.0dip"
             android:layout_alignParentEnd="true"
