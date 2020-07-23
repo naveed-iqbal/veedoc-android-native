@@ -33,7 +33,7 @@ public class Utility {
                 + AppPreferencesManager.getInstance(context).findStringPrferenceValue(AppPreferencesManager.STRING_ENUM_KEY.ACCESS_TOKEN, "");
     }
 
-    public static String BASE_URL = "https://dev-aws.veemed.com";
+    public static String BASE_URL = "https://qa-aws.veemed.com";
 
     public static boolean isPossibleEmail(String email){
         // regex credit to https://howtodoinjava.com/regex/java-regex-validate-email-address/
