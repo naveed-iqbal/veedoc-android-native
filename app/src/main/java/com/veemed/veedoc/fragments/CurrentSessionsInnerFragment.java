@@ -151,6 +151,9 @@ public class CurrentSessionsInnerFragment extends Fragment implements RecyclerVi
     }
 
     private void rejectCall(int paramInt) {
+        if(paramInt+1 <= this.pendingSessions.size()) {
+            return;
+        }
         CallActionsModel callActionsModel = new CallActionsModel();
         callActionsModel.setPerformedBy(Integer.valueOf(1));
         callActionsModel.setPerformedAction("Rejected");

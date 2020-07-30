@@ -186,6 +186,10 @@ public class LoginActivity extends AppCompatActivity {
                         preferencesManager.addOrUpdateIntegerPreference(AppPreferencesManager.INT_ENUM_KEY.TOKEN_EXPIRY, tokenResponse.getExpires_in());
                         preferencesManager.addOrUpdateStringPreference(AppPreferencesManager.STRING_ENUM_KEY.REFRESH_TOKEN, tokenResponse.getRefresh_token());
 
+                        String encodedEmail = Utility.encodeText(emailEditText.getText().toString());
+                        String encodedPassword = Utility.encodeText(passwordEditText.getText().toString());
+                        preferencesManager.addOrUpdateStringPreference(AppPreferencesManager.STRING_ENUM_KEY.USERNAME, encodedEmail);
+                        preferencesManager.addOrUpdateStringPreference(AppPreferencesManager.STRING_ENUM_KEY.PASSWORD, encodedPassword);
 
 
                         // init global bearer token

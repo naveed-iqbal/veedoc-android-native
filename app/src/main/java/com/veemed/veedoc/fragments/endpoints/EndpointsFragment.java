@@ -1,4 +1,4 @@
-package com.veemed.veedoc.fragments;
+package com.veemed.veedoc.fragments.endpoints;
 
 
 import android.content.Intent;
@@ -126,7 +126,11 @@ public class EndpointsFragment extends Fragment implements RecyclerViewListener 
     }
 
     private void processData(List<EndpointStatus> endpointStatuses) {
-        // TODO
+        if(endpointsList == null) {
+
+            return;
+        }
+
         for(EndpointStatus es: endpointStatuses) {
             for (int i=0; i<endpointsList.size(); i++) {
                 Endpoint ep = endpointsList.get(i);

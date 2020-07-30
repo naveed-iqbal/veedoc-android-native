@@ -89,6 +89,40 @@ public class VeeDocRepository {
         return toReturn;
     }
 
+    public ReturnResponse<TokenResponse> refreshLogin(String encodedEmail, String encodedPassword) {
+        final ReturnResponse<TokenResponse>[] toReturn = new ReturnResponse[1];
+        RetrofitCallbackListener<TokenResponse> signInCallback = new RetrofitCallbackListener<TokenResponse>() {
+            @Override
+            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response, int requestID) {
+                ReturnResponse<TokenResponse> returnResponse = new ReturnResponse();
+                if (response.isSuccessful()) {
+                    returnResponse.setValid(true);
+                    returnResponse.setReturnObject(response.body());
+                    returnResponse.setMessage("success");
+                } else {
+                    returnResponse.setValid(false);
+                    returnResponse.setReturnObject(null);
+                    returnResponse.setMessage(response.errorBody().toString());
+                }
+
+                toReturn[0] = returnResponse;
+            }
+
+            @Override
+            public void onFailure(Call<TokenResponse> call, Throwable t, int requestID) {
+                ReturnResponse<TokenResponse> returnResponse = new ReturnResponse();
+                returnResponse.setValid(false);
+                returnResponse.setReturnObject(null);
+                returnResponse.setMessage(t.getMessage());
+
+                toReturn[0] = returnResponse;
+            }
+        };
+
+        retrofitDataSource.tryToLogin(encodedEmail, encodedPassword, signInCallback, 0);
+        return toReturn[0];
+    }
+
     public boolean accountWithEmailExists(String encodedEmail) {
 
         return retrofitDataSource.accountWithEmailExists(encodedEmail);

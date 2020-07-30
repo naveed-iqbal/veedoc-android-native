@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.veemed.veedoc.R;
 import com.veemed.veedoc.fragments.ChangePasswordFragment;
-import com.veemed.veedoc.fragments.EndpointsFragment;
+import com.veemed.veedoc.fragments.endpoints.EndpointsFragment;
 import com.veemed.veedoc.fragments.MessagesFragment;
 import com.veemed.veedoc.fragments.MoreFragment;
 import com.veemed.veedoc.fragments.MyOffDaysFragment;

@@ -13,7 +13,9 @@ public class AppPreferencesManager {
         CARD_NUMBER,
         PHONE_NUMBER,
         ACCESS_TOKEN,
-        REFRESH_TOKEN
+        REFRESH_TOKEN,
+        USERNAME,
+        PASSWORD;
     }
     public static enum INT_ENUM_KEY {
         TOKEN_EXPIRY
