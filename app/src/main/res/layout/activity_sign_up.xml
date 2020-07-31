@@ -17,9 +17,9 @@
 
         <ImageView
             android:id="@+id/logoImg_signUp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:srcCompat="@drawable/ic_logo" />
 
         <TextView
             android:id="@+id/titleVeeDocTextView_forgotPassword"
@@ -111,8 +111,9 @@
             style="@style/FormTextView" />
 
         <Button
+            android:layout_marginTop="16dp"
             android:id="@+id/signUpBtn_signUp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/sign_up"

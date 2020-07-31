@@ -30,7 +30,7 @@ import retrofit2.Response;
 
 public class Utility {
 
-    public static String BASE_URL = "https://qa-aws.veemed.com";
+    public static String BASE_URL = "https://dev-aws.veemed.com";
 
     public static String bearerToken = "";
     public static int refreshDelay = 3000;

@@ -5,7 +5,7 @@
     <string name="sign_up">Sign up</string>
     <string name="forgot_password">Forgot your password?</string>
     <string name="version">Version 1.0.45</string>
-    <string name="full_copyright">\u00A9\2019 VeeMed Inc</string>
+    <string name="full_copyright">\u00A9\2020 VeeMed Inc</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="ask_have_account">Have an account? Sign in</string>
@@ -195,5 +195,9 @@
     <string name="reject">Reject</string>
     <string name="accept">Accept</string>
     <string name="conversation_null">Conversation is null</string>
+    <string name="error_empty_password">Password can not be empty!</string>
+    <string name="error_not_similar_password">Passwords did not match!</string>
+    <string name="incorrent_password">Incorrect current password!</string>
+    <string name="password_changed">Password changed!</string>
 
 </resources>

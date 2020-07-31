@@ -254,7 +254,8 @@ public class NavigationBarActivity extends BaseActivity {
         }
     }
 
-    private void goBackToLogin(){
+    public void goBackToLogin(){
+        finish();
         Intent intent = new Intent(NavigationBarActivity.this, LoginActivity.class);
         startActivity(intent);
     }

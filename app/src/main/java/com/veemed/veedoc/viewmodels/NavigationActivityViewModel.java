@@ -3,6 +3,8 @@ package com.veemed.veedoc.viewmodels;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import com.veemed.veedoc.models.ChangePassword;
 import com.veemed.veedoc.models.Conversation;
 import com.veemed.veedoc.models.SpecialistInformation;
 import com.veemed.veedoc.models.SupportGroupModel;
@@ -32,6 +34,8 @@ public class NavigationActivityViewModel extends ViewModel {
     MutableLiveData<String> toolbarTitle = new MutableLiveData();
 
     MutableLiveData<ReturnResponse<User>> userData = new MutableLiveData();
+
+    MutableLiveData<ChangePassword> changePasswordViewModel = new MutableLiveData();
 
     VeeDocRepository userRepo = VeeDocRepository.getInstance();
 
@@ -132,6 +136,28 @@ public class NavigationActivityViewModel extends ViewModel {
             }
         };
         this.userRepo.getSpecialistInformation(retrofitCallbackListener, 0);
+    }
+
+    public MutableLiveData<ChangePassword> getChangePasswordViewModel() {
+        return changePasswordViewModel;
+    }
+
+    public void changePassword(ChangePassword changePassword) {
+        userRepo.changePassword(changePassword, new RetrofitCallbackListener<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response, int requestID) {
+                if(response.isSuccessful()) {
+                    changePasswordViewModel.setValue(changePassword);
+                } else {
+                    changePasswordViewModel.setValue(null);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t, int requestID) {
+                changePasswordViewModel.setValue(null);
+            }
+        }, 0);
     }
 
     public LiveData<String> getToolbarSubtitle() {

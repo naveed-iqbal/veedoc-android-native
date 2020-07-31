@@ -31,8 +31,7 @@
             android:label="@string/title_activity_navigation_bar" />
         <activity android:name=".activities.ForgotPasswordActivity" />
         <activity
-            android:name=".activities.SignUpActivity"
-            android:theme="@style/Theme.MaterialComponents.Dialog" />
+            android:name=".activities.SignUpActivity" />
     </application>
 
 </manifest>
