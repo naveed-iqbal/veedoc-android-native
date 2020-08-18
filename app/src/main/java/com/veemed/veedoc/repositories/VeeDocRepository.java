@@ -7,6 +7,7 @@ import com.veemed.CallActionsModel;
 import com.veemed.veedoc.models.ChangePassword;
 import com.veemed.veedoc.models.Conversation;
 import com.veemed.veedoc.models.DeferResponseModel;
+import com.veemed.veedoc.models.EndpointsRequestModel;
 import com.veemed.veedoc.models.MarkMessagesReadRequestModel;
 import com.veemed.veedoc.models.Message;
 import com.veemed.veedoc.models.NewMessageBody;
@@ -226,6 +227,10 @@ public class VeeDocRepository {
 
     public void getEndpoints(String status, String filter, int index, int size, RetrofitCallbackListener<List<Endpoint>> callbackListener, int requestID) {
         retrofitDataSource.getEndpoints(status, filter, index, size, callbackListener, requestID);
+    }
+
+    public void getEndpoints(EndpointsRequestModel requestModel, RetrofitCallbackListener<List<Endpoint>> callbackListener, int requestID) {
+        retrofitDataSource.getEndpoints(requestModel, callbackListener, requestID);
     }
 
     public void getEndpointStatus(RetrofitCallbackListener<List<EndpointStatus>> callbackListener, int requestID) {

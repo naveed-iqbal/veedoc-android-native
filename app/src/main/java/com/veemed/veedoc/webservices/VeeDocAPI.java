@@ -6,6 +6,7 @@ import com.veemed.veedoc.models.ConnectedCallPingModel;
 import com.veemed.veedoc.models.Conversation;
 import com.veemed.veedoc.models.Endpoint;
 import com.veemed.veedoc.models.EndpointStatus;
+import com.veemed.veedoc.models.EndpointsRequestModel;
 import com.veemed.veedoc.models.MarkMessagesReadRequestModel;
 import com.veemed.veedoc.models.Message;
 import com.veemed.veedoc.models.NewMessageBody;
@@ -67,6 +68,9 @@ public interface VeeDocAPI {
 
     @GET("/platform/api/endpoints/status/filtered/{status}/{filter}/{index}/{size}")
     Call<List<Endpoint>> getEndPoints(@Path("status") String paramString1, @Path("filter") String paramString2, @Path("index") int paramInt1, @Path("size") int paramInt2, @Header("Authorization") String paramString3);
+
+    @POST("/platform/api/endpoint/accessible")
+    Call<List<Endpoint>> getEndPointsNew(@Body EndpointsRequestModel request, @Header("Authorization") String paramString);
 
     @GET("/platform/api/specialist/schedule/{year}/{month}")
     Call<List<ScheduledEvent>> getEvents(@Path("year") int paramInt1, @Path("month") int paramInt2, @Header("Authorization") String paramString);

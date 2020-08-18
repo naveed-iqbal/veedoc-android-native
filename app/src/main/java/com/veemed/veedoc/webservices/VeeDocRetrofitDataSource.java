@@ -11,6 +11,7 @@ import com.veemed.veedoc.models.ChangePassword;
 import com.veemed.veedoc.models.Conversation;
 import com.veemed.veedoc.models.DeferResponseModel;
 import com.veemed.veedoc.models.EndpointStatus;
+import com.veemed.veedoc.models.EndpointsRequestModel;
 import com.veemed.veedoc.models.MarkMessagesReadRequestModel;
 import com.veemed.veedoc.models.Message;
 import com.veemed.veedoc.models.NewMessageBody;
@@ -230,6 +231,21 @@ public class VeeDocRetrofitDataSource {
         });
     }
 
+    public void getEndpoints(EndpointsRequestModel requestModel, RetrofitCallbackListener<List<Endpoint>> callbackListener, int requestID){
+
+        Call<List<Endpoint>> response =  RetrofitBuilder.getVeeDocAPI().getEndPointsNew(requestModel, Utility.bearerToken);
+        response.enqueue(new Callback<List<Endpoint>>() {
+            @Override
+            public void onResponse(Call<List<Endpoint>> call, Response<List<Endpoint>> response) {
+                callbackListener.onResponse(call, response, requestID);
+            }
+
+            @Override
+            public void onFailure(Call<List<Endpoint>> call, Throwable t) {
+                callbackListener.onFailure(call, t, requestID);
+            }
+        });
+    }
     public void getEndpointsStatus(RetrofitCallbackListener<List<EndpointStatus>> callbackListener, int requestID){
 
         Call<List<EndpointStatus>> response =  RetrofitBuilder.getVeeDocAPI().getEndPointStatus(Utility.bearerToken);

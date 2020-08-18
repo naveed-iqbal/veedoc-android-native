@@ -30,7 +30,7 @@ import retrofit2.Response;
 
 public class Utility {
 
-    public static String BASE_URL = "https://dev-aws.veemed.com";
+    public static String BASE_URL = "https://qa-aws.veemed.com";
 
     public static String bearerToken = "";
     public static int refreshDelay = 3000;
@@ -84,7 +84,6 @@ public class Utility {
         }, 60000);
     }
 
-
     public static boolean isPossibleEmail(String email){
         // regex credit to https://howtodoinjava.com/regex/java-regex-validate-email-address/
         String emailRegex = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+(?:\\.[a-zA-Z0-9_!#$%&’*+/=?`{|}~^-]+)*@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
@@ -103,7 +102,7 @@ public class Utility {
         return null;
     }
 
-    public static String decodeText(String text){
+    public static String decodeText(String text) {
         try {
             return new String(Base64.decode(text, Base64.DEFAULT), "UTF-8");
         } catch (UnsupportedEncodingException e) {
@@ -112,7 +111,7 @@ public class Utility {
         return null;
     }
 
-    public static void deepCopyStatesAndNumbersMap(LinkedHashMap<String, String> originalMap, LinkedHashMap<String, String> copyToMap){
+    public static void deepCopyStatesAndNumbersMap(LinkedHashMap<String, String> originalMap, LinkedHashMap<String, String> copyToMap) {
         for (Map.Entry<String, String> entry : originalMap.entrySet()){
             copyToMap.put(entry.getKey(), entry.getValue());
         }

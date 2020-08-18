@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,7 +34,7 @@ import com.veemed.veedoc.viewmodels.NavigationActivityViewModel;
 
 import java.util.List;
 
-public class EndpointsFragment extends Fragment implements RecyclerViewListener {
+public class EndpointsFragment extends Fragment implements RecyclerViewListener, AdapterView.OnItemSelectedListener {
     private NavigationActivityViewModel navigationActivityViewModel;
     private EndpointsViewModel endpointsViewModel;
     private EndpointsRecyclerViewAdapter endpointsRecyclerViewAdapter;
@@ -40,8 +42,13 @@ public class EndpointsFragment extends Fragment implements RecyclerViewListener 
     private List<Endpoint> endpointsList;
     private TextView noEndpointsMessage;
     private MaterialButton onlineButton, busyButton, offlineButton;
-    Handler handler = new Handler();
-    int delay = Utility.refreshDelay; //milliseconds
+    private Handler handler = new Handler();
+    private int delay = Utility.refreshDelay; //milliseconds
+
+    private Spinner spFacilities;
+    private Spinner spPartnerSite;
+    private int selectedPartnerSiteId = 0;
+    private int selectedFacilityId = 0;
 
     private androidx.appcompat.widget.SearchView endpointsSearchView;
 
@@ -63,28 +70,38 @@ public class EndpointsFragment extends Fragment implements RecyclerViewListener 
     }
 
     private void initButtons(View view) {
+        spFacilities = view.findViewById(R.id.spFacility);
+        spFacilities.setOnItemSelectedListener(this);
+
+        spPartnerSite = view.findViewById(R.id.spPartnerSite);
+        spPartnerSite.setOnItemSelectedListener(this);
+
         onlineButton = view.findViewById(R.id.onlineButton);
         onlineButton.setChecked(true);
         offlineButton = view.findViewById(R.id.offlineButton);
+
         busyButton = view.findViewById(R.id.busyButton);
         onlineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                endpointsViewModel.getEndPoints("online", "null", 0, 10);
+                endpointsViewModel.currentStatus = "online";
+                fetchEndPoints(0, 10);
             }
         });
 
         offlineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                endpointsViewModel.getEndPoints("offline", "null", 0, 10);
+                endpointsViewModel.currentStatus = "offline";
+                fetchEndPoints(0, Integer.MAX_VALUE);
             }
         });
 
         busyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                endpointsViewModel.getEndPoints("busy", "null", 0, 10);
+                endpointsViewModel.currentStatus = "busy";
+                fetchEndPoints(0, 10);
             }
         });
     }
@@ -199,16 +216,19 @@ public class EndpointsFragment extends Fragment implements RecyclerViewListener 
         endpointsSearchView = getView().findViewById(R.id.endpoints_searchView);
 
         endpointsSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
             @Override
             public boolean onQueryTextSubmit(String query) {
-                endpointsViewModel.getEndPoints(null, query, 0, Integer.MAX_VALUE);
+                endpointsViewModel.currentFilter = query;
+                fetchEndPoints(0, Integer.MAX_VALUE);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(newText.isEmpty()) {
-                    endpointsViewModel.getEndPoints(null, "null", 0, Integer.MAX_VALUE);
+                    endpointsViewModel.currentFilter = newText;
+                    fetchEndPoints(0, Integer.MAX_VALUE);
                 }
 
                 return false;
@@ -218,7 +238,31 @@ public class EndpointsFragment extends Fragment implements RecyclerViewListener 
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        int id = adapterView.getId();
+        switch (id) {
 
+            case R.id.spFacility:
+                if(spFacilities.getSelectedItemPosition() <0) return;
+                endpointsViewModel.facilityId = Integer.parseInt(spFacilities.getSelectedItem().toString());
+                fetchEndPoints(0, Integer.MAX_VALUE);
+                break;
 
+            case R.id.spPartnerSite:
+                if(spFacilities.getSelectedItemPosition() <0) return;
+                endpointsViewModel.partnerSiteId = Integer.parseInt(spPartnerSite.getSelectedItem().toString());
+                fetchEndPoints(0, Integer.MAX_VALUE);
+                break;
+        }
+    }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    private void fetchEndPoints(int index, int size) {
+        endpointsViewModel.getEndPoints(endpointsViewModel.facilityId, endpointsViewModel.partnerSiteId, endpointsViewModel.currentStatus, endpointsViewModel.currentFilter, "", index, size);
+    }
 }

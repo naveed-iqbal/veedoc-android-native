@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.veemed.veedoc.models.Endpoint;
 import com.veemed.veedoc.models.EndpointStatus;
+import com.veemed.veedoc.models.EndpointsRequestModel;
 import com.veemed.veedoc.webservices.RetrofitCallbackListener;
 
 import java.util.List;
@@ -19,18 +20,24 @@ public class EndpointsViewModel extends NavigationActivityViewModel {
     }
 
     private int lastIndex = 0;
-    private String currentFilter = "null";
-    private String currentStatus = "online";
+    private int pageSize = 10;
+    public int partnerSiteId = 0;
+    public int facilityId = 0;
+    public String currentFilter = "";
+    public String currentStatus = "online";
+    private String currentSortBy = "name";
     MutableLiveData<List<Endpoint>> endPointsLiveData;
     MutableLiveData<List<EndpointStatus>> endPointStatusLiveData = new MutableLiveData<>();
+
     public LiveData<List<Endpoint>> initEndpoints(){
         endPointsLiveData = new MutableLiveData<>();
         lastIndex = 0;
-        getEndPoints(currentStatus, currentFilter, 0, 10);
+        getEndPoints(facilityId, partnerSiteId, currentStatus, currentFilter, currentSortBy, 0, 10);
         return endPointsLiveData;
     }
 
-    public void getEndPoints(String status, String filter, int index, int size) {
+
+    /*public void getEndPoints(String status, String filter, int index, int size) {
         if(filter!=null)currentFilter = filter;
         if(status!=null)currentStatus =  status;
         this.lastIndex = index;
@@ -52,10 +59,49 @@ public class EndpointsViewModel extends NavigationActivityViewModel {
         };
 
         userRepo.getEndpoints(status, filter, index, size, callbackListener, 0);
+    }*/
+
+    public void getEndPoints(int facilityId, int partnerSiteId, String status, String filter, String sortBy, int index, int size) {
+        // below is assigning duplication, but not removing for now
+        if (filter != null) currentFilter = filter;
+        if (status != null) currentStatus = status;
+        if (sortBy != null) currentSortBy = sortBy;
+        this.facilityId = facilityId;
+        this.partnerSiteId = partnerSiteId;
+        pageSize = size;
+        this.lastIndex = index;
+        RetrofitCallbackListener<List<Endpoint>> callbackListener = new RetrofitCallbackListener<List<Endpoint>>() {
+            @Override
+            public void onResponse(Call<List<Endpoint>> call, Response<List<Endpoint>> response, int requestID) {
+                if(response.isSuccessful()) {
+                    List<Endpoint> data = endPointsLiveData.getValue();
+                    if(index>0) data.addAll(response.body());
+                    else data = response.body();
+                    endPointsLiveData.setValue(data);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Endpoint>> call, Throwable t, int requestID) {
+
+            }
+        };
+
+        EndpointsRequestModel requestModel = new EndpointsRequestModel();
+        requestModel.setConnectionStatus(status);
+        requestModel.setFacilityId(facilityId);
+        requestModel.setPartnerSiteId(partnerSiteId);
+        requestModel.setFilter(filter);
+        requestModel.setSortBy(sortBy);
+        requestModel.setPageIndex(index);
+        requestModel.setPageSize(size);
+
+        // userRepo.getEndpoints(status, filter, index, size, callbackListener, 0);
+        userRepo.getEndpoints(requestModel, callbackListener, 0);
     }
 
     public void loadMoreData() {
-        getEndPoints(currentStatus, currentFilter, lastIndex+1, 10);
+        getEndPoints(facilityId, partnerSiteId, currentStatus, currentFilter, currentSortBy, lastIndex+1, 10);
     }
 
     public MutableLiveData<List<EndpointStatus>> getStatusLiveData() {
