@@ -6,11 +6,12 @@ import androidx.lifecycle.MutableLiveData;
 import com.veemed.CallActionsModel;
 import com.veemed.veedoc.models.ChangePassword;
 import com.veemed.veedoc.models.Conversation;
-import com.veemed.veedoc.models.DeferResponseModel;
 import com.veemed.veedoc.models.EndpointsRequestModel;
+import com.veemed.veedoc.models.Facility;
 import com.veemed.veedoc.models.MarkMessagesReadRequestModel;
 import com.veemed.veedoc.models.Message;
 import com.veemed.veedoc.models.NewMessageBody;
+import com.veemed.veedoc.models.PartnerSite;
 import com.veemed.veedoc.models.PendingSession;
 import com.veemed.veedoc.models.SupportGroupModel;
 import com.veemed.veedoc.models.UserAPIRequest;
@@ -410,5 +411,13 @@ public class VeeDocRepository {
 
     public void reconnectCall(int paramInt1, RetrofitCallbackListener<SessionInfo> paramRetrofitCallbackListener, int paramInt2) {
         this.retrofitDataSource.reconnectCall(paramInt1, paramRetrofitCallbackListener, paramInt2);
+    }
+
+    public void getFacilities(int partnerSiteId, RetrofitCallbackListener<List<Facility>> callbackListener, int requestID) {
+        retrofitDataSource.getFacilities(partnerSiteId, callbackListener, requestID);
+    }
+
+    public void getPartnerSites(RetrofitCallbackListener<List<PartnerSite>> callbackListener, int requestID) {
+        retrofitDataSource.getPartnerSites(callbackListener, requestID);
     }
 }

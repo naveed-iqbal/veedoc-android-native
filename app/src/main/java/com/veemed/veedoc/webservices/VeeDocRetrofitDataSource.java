@@ -12,9 +12,11 @@ import com.veemed.veedoc.models.Conversation;
 import com.veemed.veedoc.models.DeferResponseModel;
 import com.veemed.veedoc.models.EndpointStatus;
 import com.veemed.veedoc.models.EndpointsRequestModel;
+import com.veemed.veedoc.models.Facility;
 import com.veemed.veedoc.models.MarkMessagesReadRequestModel;
 import com.veemed.veedoc.models.Message;
 import com.veemed.veedoc.models.NewMessageBody;
+import com.veemed.veedoc.models.PartnerSite;
 import com.veemed.veedoc.models.PendingSession;
 import com.veemed.veedoc.models.SupportGroupModel;
 import com.veemed.veedoc.models.UserAPIRequest;
@@ -655,6 +657,40 @@ public class VeeDocRetrofitDataSource {
 
             public void onResponse(Call<SessionInfo> param1Call, Response<SessionInfo> param1Response) {
                 callbackListener.onResponse(param1Call, param1Response, requestID);
+            }
+        });
+    }
+
+    public void getFacilities(
+            int partnerSiteId,
+            RetrofitCallbackListener<List<Facility>> callbackListener, int requestID){
+
+        Call<List<Facility>> response =  RetrofitBuilder.getVeeDocAPI().getFacilities(partnerSiteId, Utility.bearerToken);
+        response.enqueue(new Callback<List<Facility>>() {
+            @Override
+            public void onResponse(Call<List<Facility>> call, Response<List<Facility>> response) {
+                callbackListener.onResponse(call, response, requestID);
+            }
+
+            @Override
+            public void onFailure(Call<List<Facility>> call, Throwable t) {
+                callbackListener.onFailure(call, t, requestID);
+            }
+        });
+    }
+
+    public void getPartnerSites(RetrofitCallbackListener<List<PartnerSite>> callbackListener, int requestID){
+
+        Call<List<PartnerSite>> response =  RetrofitBuilder.getVeeDocAPI().getPartnerSites(Utility.bearerToken);
+        response.enqueue(new Callback<List<PartnerSite>>() {
+            @Override
+            public void onResponse(Call<List<PartnerSite>> call, Response<List<PartnerSite>> response) {
+                callbackListener.onResponse(call, response, requestID);
+            }
+
+            @Override
+            public void onFailure(Call<List<PartnerSite>> call, Throwable t) {
+                callbackListener.onFailure(call, t, requestID);
             }
         });
     }

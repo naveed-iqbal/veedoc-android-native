@@ -7,9 +7,11 @@ import com.veemed.veedoc.models.Conversation;
 import com.veemed.veedoc.models.Endpoint;
 import com.veemed.veedoc.models.EndpointStatus;
 import com.veemed.veedoc.models.EndpointsRequestModel;
+import com.veemed.veedoc.models.Facility;
 import com.veemed.veedoc.models.MarkMessagesReadRequestModel;
 import com.veemed.veedoc.models.Message;
 import com.veemed.veedoc.models.NewMessageBody;
+import com.veemed.veedoc.models.PartnerSite;
 import com.veemed.veedoc.models.PendingSession;
 import com.veemed.veedoc.models.Session;
 import com.veemed.veedoc.models.SessionInfo;
@@ -130,4 +132,10 @@ public interface VeeDocAPI {
 
     @POST("/platform/api/requests/message/send")
     Call<Void> sendNewMessage(@Body NewMessageBody paramNewMessageBody, @Header("Authorization") String paramString);
+
+    @GET("/platform/api/partnersites/get")
+    Call<List<PartnerSite>> getPartnerSites(@Header("Authorization") String paramString);
+
+    @GET("/platform/api/partnersite/facility/{id}")
+    Call<List<Facility>> getFacilities(@Path("id") int paramInt, @Header("Authorization") String paramString);
 }

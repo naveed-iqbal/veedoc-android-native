@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -28,10 +30,13 @@ import com.veemed.veedoc.adapters.EndpointsRecyclerViewAdapter;
 import com.veemed.veedoc.adapters.RecyclerViewListener;
 import com.veemed.veedoc.models.Endpoint;
 import com.veemed.veedoc.models.EndpointStatus;
+import com.veemed.veedoc.models.Facility;
+import com.veemed.veedoc.models.PartnerSite;
 import com.veemed.veedoc.utils.Utility;
 import com.veemed.veedoc.viewmodels.EndpointsViewModel;
 import com.veemed.veedoc.viewmodels.NavigationActivityViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EndpointsFragment extends Fragment implements RecyclerViewListener, AdapterView.OnItemSelectedListener {
@@ -43,12 +48,19 @@ public class EndpointsFragment extends Fragment implements RecyclerViewListener,
     private TextView noEndpointsMessage;
     private MaterialButton onlineButton, busyButton, offlineButton;
     private Handler handler = new Handler();
+    private MutableLiveData<List<Facility>> facilitiesLiveData;
+    private MutableLiveData<List<PartnerSite>> partnerSiteMutableLiveData;
     private int delay = Utility.refreshDelay; //milliseconds
 
     private Spinner spFacilities;
     private Spinner spPartnerSite;
     private int selectedPartnerSiteId = 0;
     private int selectedFacilityId = 0;
+
+    private List<Facility> facilitiesList;
+    private List<PartnerSite> partnerSitesList;
+    private ArrayAdapter<Facility> facilitiesAdapter;
+    private ArrayAdapter<PartnerSite> partnerSitesAdapter;
 
     private androidx.appcompat.widget.SearchView endpointsSearchView;
 
@@ -64,23 +76,67 @@ public class EndpointsFragment extends Fragment implements RecyclerViewListener,
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.endpoints_fragment, container, false);
         noEndpointsMessage = view.findViewById(R.id.noEndpointTextView);
+
         initButtons(view);
         initializeRecyclerView(view);
         return view;
     }
 
+    private void initFiltersLiveData() {
+
+        if(Utility.user.getFacilityId() != 0) {
+            spPartnerSite.setVisibility(View.GONE);
+            spFacilities.setVisibility(View.GONE);
+            getView().findViewById(R.id.tvPartnerSite).setVisibility(View.GONE);
+            getView().findViewById(R.id.tvFacility).setVisibility(View.GONE);
+        } else if(Utility.user.getPartnerSiteId() != 0) {
+            spPartnerSite.setVisibility(View.GONE);
+            getView().findViewById(R.id.tvPartnerSite).setVisibility(View.GONE);
+        }
+
+        facilitiesLiveData = endpointsViewModel.getFacilitiesLiveData();
+        partnerSiteMutableLiveData = endpointsViewModel.getPartnerSitesLiveData();
+
+        facilitiesLiveData.observe(this, new Observer<List<Facility>>() {
+            @Override
+            public void onChanged(List<Facility> facilities) {
+                facilitiesList.clear();
+                facilitiesList.addAll(facilities);
+                facilitiesAdapter.notifyDataSetChanged();
+            }
+        });
+
+        partnerSiteMutableLiveData.observe(this, new Observer<List<PartnerSite>>() {
+            @Override
+            public void onChanged(List<PartnerSite> partnerSites) {
+                partnerSitesList.clear();
+                partnerSitesList.addAll(partnerSites);
+                partnerSitesAdapter.notifyDataSetChanged();
+            }
+        });
+
+        endpointsViewModel.fetchPartnerSites();
+    }
+
     private void initButtons(View view) {
+        facilitiesList = new ArrayList<>();
+        partnerSitesList = new ArrayList<>();
+
         spFacilities = view.findViewById(R.id.spFacility);
         spFacilities.setOnItemSelectedListener(this);
-
         spPartnerSite = view.findViewById(R.id.spPartnerSite);
         spPartnerSite.setOnItemSelectedListener(this);
+        facilitiesAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, facilitiesList);
+        partnerSitesAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, partnerSitesList);
+
+        spFacilities.setAdapter(facilitiesAdapter);
+        spPartnerSite.setAdapter(partnerSitesAdapter);
 
         onlineButton = view.findViewById(R.id.onlineButton);
         onlineButton.setChecked(true);
         offlineButton = view.findViewById(R.id.offlineButton);
-
         busyButton = view.findViewById(R.id.busyButton);
+
         onlineButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,7 +185,6 @@ public class EndpointsFragment extends Fragment implements RecyclerViewListener,
                 displayNoEndpointsIfNeccessary();
             }
 
-
         });
 
         endpointsViewModel.getStatusLiveData().observe(this, new Observer<List<EndpointStatus>>() {
@@ -140,6 +195,7 @@ public class EndpointsFragment extends Fragment implements RecyclerViewListener,
         });
         startScheduledRepeatRefresh();
         initializeSearchView();
+        initFiltersLiveData();
     }
 
     private void processData(List<EndpointStatus> endpointStatuses) {
@@ -245,13 +301,17 @@ public class EndpointsFragment extends Fragment implements RecyclerViewListener,
 
             case R.id.spFacility:
                 if(spFacilities.getSelectedItemPosition() <0) return;
-                endpointsViewModel.facilityId = Integer.parseInt(spFacilities.getSelectedItem().toString());
+                Facility facility = (Facility) spFacilities.getSelectedItem();
+                endpointsViewModel.facilityId = facility.getId();
                 fetchEndPoints(0, Integer.MAX_VALUE);
                 break;
 
             case R.id.spPartnerSite:
-                if(spFacilities.getSelectedItemPosition() <0) return;
-                endpointsViewModel.partnerSiteId = Integer.parseInt(spPartnerSite.getSelectedItem().toString());
+                if(spPartnerSite.getSelectedItemPosition() < 0) return;
+                PartnerSite partnerSite = (PartnerSite) spPartnerSite.getSelectedItem();
+                endpointsViewModel.partnerSiteId = partnerSite.getId();
+                endpointsViewModel.facilityId = 0;
+                endpointsViewModel.fetchFacilities(endpointsViewModel.partnerSiteId);
                 fetchEndPoints(0, Integer.MAX_VALUE);
                 break;
         }

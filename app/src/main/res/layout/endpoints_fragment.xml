@@ -53,22 +53,48 @@
     </androidx.appcompat.widget.SearchView>
     <LinearLayout
         android:background="@color/lightGray"
-        android:weightSum="2"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
+        android:orientation="vertical"
+        android:padding="7dp"
         android:layout_height="wrap_content">
-        <Spinner
-            android:layout_weight="1"
-            android:id="@+id/spPartnerSite"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp" />
-        <Spinner
-            android:layout_weight="1"
-            android:id="@+id/spFacility"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp" />
+        <LinearLayout
+            android:background="@color/lightGray"
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/tvPartnerSite"
+                android:text="Partner Site"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_weight="1"
+                android:text="Facility"
+                android:id="@+id/tvFacility"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:background="@color/lightGray"
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <Spinner
+                android:layout_weight="1"
+                android:id="@+id/spPartnerSite"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+            <Spinner
+                android:layout_weight="1"
+                android:id="@+id/spFacility"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
