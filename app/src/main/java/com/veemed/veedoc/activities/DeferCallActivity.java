@@ -6,12 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.veemed.CallActionsModel;
+import com.veemed.veedoc.models.CallActionsModel;
 import com.veemed.veedoc.R;
 import com.veemed.veedoc.models.Conversation;
-import com.veemed.veedoc.models.DeferResponseModel;
 import com.veemed.veedoc.models.PendingSession;
 import com.veemed.veedoc.repositories.VeeDocRepository;
 import com.veemed.veedoc.utils.Utility;

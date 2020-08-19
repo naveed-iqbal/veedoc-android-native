@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.veemed.CallActionsModel;
+import com.veemed.veedoc.models.CallActionsModel;
 import com.veemed.veedoc.R;
 import com.veemed.veedoc.activities.DeferCallActivity;
 import com.veemed.veedoc.activities.KartCallActivity;

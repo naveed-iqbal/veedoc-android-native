@@ -7,6 +7,8 @@ import android.Manifest;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.opentok.android.OpentokError;
@@ -26,8 +28,8 @@ import pub.devrel.easypermissions.EasyPermissions;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class KartCallActivity extends AppCompatActivity implements  Session.SessionListener,
-        PublisherKit.PublisherListener  {
+public class KartCallActivity extends AppCompatActivity implements Session.SessionListener,
+        PublisherKit.PublisherListener, View.OnTouchListener {
 
     private static final String TAG = KartCallActivity.class.getSimpleName();
     private static String API_KEY = "";
@@ -72,10 +74,13 @@ public class KartCallActivity extends AppCompatActivity implements  Session.Sess
         mPublisherViewContainer = (FrameLayout)findViewById(R.id.publisher_container);
         mSubscriberViewContainer = (FrameLayout)findViewById(R.id.subscriber_container);
 
+        mSubscriberViewContainer.setOnTouchListener(this);
         VeeDocRepository userRepo = VeeDocRepository.getInstance();
 
 
         SessionInfo sessionInfo = (SessionInfo) getIntent().getSerializableExtra("session");
+
+
 
         if(sessionInfo == null) { // this means call requested from endpoints screen
             int id = getIntent().getIntExtra("sessionId", -1);
@@ -130,6 +135,7 @@ public class KartCallActivity extends AppCompatActivity implements  Session.Sess
 
     @Override
     public void onDisconnected(Session session) {
+        endCall();
         finish();
         Log.d(TAG, "onDisconnected: Session disconnected");
     }
@@ -173,5 +179,31 @@ public class KartCallActivity extends AppCompatActivity implements  Session.Sess
     @Override
     public void onError(PublisherKit publisherKit, OpentokError opentokError) {
 
+    }
+
+    private void resetCamera() {
+        mSession.sendSignal("ios", "__cmd__;reset;", mSession.getConnection());
+    }
+
+    private void endCall() {
+        mSession.sendSignal("ios", "__cmd__;call_disconnect;", mSession.getConnection());
+    }
+
+    private void publishAudio(boolean bool) {
+        mPublisher.setPublishAudio(bool);
+        mPublisher.setPublishVideo(bool);
+    }
+
+    private void publishVideo(boolean bool) {
+        mPublisher.setPublishVideo(bool);
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+
+        if(motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+
+        }
+        return false;
     }
 }

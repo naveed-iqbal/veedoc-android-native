@@ -5,11 +5,9 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.veemed.CallActionsModel;
-import com.veemed.veedoc.models.CallAcceptAPIResponse;
+import com.veemed.veedoc.models.CallActionsModel;
 import com.veemed.veedoc.models.ChangePassword;
 import com.veemed.veedoc.models.Conversation;
-import com.veemed.veedoc.models.DeferResponseModel;
 import com.veemed.veedoc.models.EndpointStatus;
 import com.veemed.veedoc.models.EndpointsRequestModel;
 import com.veemed.veedoc.models.Facility;
@@ -39,7 +37,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Path;
 
 public class VeeDocRetrofitDataSource {
 

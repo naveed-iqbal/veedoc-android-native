@@ -3,7 +3,7 @@ package com.veemed.veedoc.repositories;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.veemed.CallActionsModel;
+import com.veemed.veedoc.models.CallActionsModel;
 import com.veemed.veedoc.models.ChangePassword;
 import com.veemed.veedoc.models.Conversation;
 import com.veemed.veedoc.models.EndpointsRequestModel;

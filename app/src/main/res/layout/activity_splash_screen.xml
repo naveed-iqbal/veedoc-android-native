@@ -7,6 +7,31 @@
     android:background="@color/colorLightBlueTheme"
     tools:context=".activities.SplashScreenActivity">
 
+    <FrameLayout
+        android:id="@+id/flSplash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="276dp"
+        android:layout_height="45dp"
+        android:text="TextView"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/tvPoint"
+        app:layout_constraintTop_toTopOf="@+id/flSplash" />
+    <TextView
+        android:id="@+id/tvPoint"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="TextView"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/logoSplashScreen" />
+
     <ImageView
         android:id="@+id/logoSplashScreen"
         android:layout_width="wrap_content"

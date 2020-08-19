@@ -1,6 +1,6 @@
 package com.veemed.veedoc.webservices;
 
-import com.veemed.CallActionsModel;
+import com.veemed.veedoc.models.CallActionsModel;
 import com.veemed.veedoc.models.ChangePassword;
 import com.veemed.veedoc.models.ConnectedCallPingModel;
 import com.veemed.veedoc.models.Conversation;
