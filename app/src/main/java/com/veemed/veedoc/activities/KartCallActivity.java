@@ -139,7 +139,6 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
 
             // initialize and connect to the session
 
-
         } else {
             EasyPermissions.requestPermissions(this, "This app needs access to your camera and mic to make video calls", RC_VIDEO_APP_PERM, perms);
         }
@@ -149,7 +148,7 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
     public void onSignalReceived(Session session, String type, String data, Connection connection) {
         String myConnectionId = session.getConnection().getConnectionId();
         if (connection != null && connection.getConnectionId().equals(myConnectionId)) {
-            // Signal received from another client
+            // TODO disconnect call
         }
     }
 

@@ -40,18 +40,20 @@ public interface VeeDocAPI {
     @Headers({"Content-Type: application/x-www-form-urlencoded"})
     @POST("/identity/connect/token")
     Call<TokenResponse> authenticateUser(@Field("client_id") String paramString1, @Field("client_secret") String paramString2, @Field("username") String paramString3, @Field("password") String paramString4, @Field("grant_type") String paramString5);
-
+    /* Three calls below are duplicate should be removed in future */
     @PUT("/platform/api/specialist/request/action")
     Call<SessionInfo> callActionAccept(@Body CallActionsModel paramCallActionsModel, @Header("Authorization") String paramString);
 
     @PUT("/platform/api/specialist/request/action")
     Call<Conversation> callActionDefer(@Body CallActionsModel paramCallActionsModel, @Header("Authorization") String paramString);
 
+    @PUT("/platform/api/specialist/request/action")
+    Call<Void> callActionReject(@Body CallActionsModel paramCallActionsModel, @Header("Authorization") String paramString);
+
     @GET("/platform/api/specialist/request/{sessionId}/session")
     Call<SessionInfo> callActionReconnect(@Path("sessionId") int paramInt, @Header("Authorization") String paramString);
 
-    @PUT("/platform/api/specialist/request/action")
-    Call<Void> callActionReject(@Body CallActionsModel paramCallActionsModel, @Header("Authorization") String paramString);
+
 
     @PUT("/platform/api/user/password/change")
     Call<Void> changePassword(@Body ChangePassword paramChangePassword, @Header("Authorization") String paramString);
