@@ -21,6 +21,7 @@ import com.opentok.android.Session;
 import com.opentok.android.Stream;
 import com.opentok.android.Subscriber;
 import com.veemed.veedoc.R;
+import com.veemed.veedoc.models.CallActionsModel;
 import com.veemed.veedoc.models.SessionInfo;
 import com.veemed.veedoc.repositories.VeeDocRepository;
 import com.veemed.veedoc.utils.Toast;
@@ -61,10 +62,12 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
     private boolean isAudioPublished = true;
     private boolean isVideoPublished = true;
 
+    private SessionInfo sessionInfo;
+
     RetrofitCallbackListener<SessionInfo> sessionInfoCallbackListener = new RetrofitCallbackListener<SessionInfo>() {
         @Override
         public void onResponse(Call<SessionInfo> call, Response<SessionInfo> response, int requestID) {
-            SessionInfo sessionInfo = response.body();
+            sessionInfo = response.body();
             initCall(sessionInfo);
         }
 
@@ -102,7 +105,7 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
         mSubscriberViewContainer.setOnTouchListener(this);
         VeeDocRepository userRepo = VeeDocRepository.getInstance();
 
-        SessionInfo sessionInfo = (SessionInfo) getIntent().getSerializableExtra("session");
+        sessionInfo = (SessionInfo) getIntent().getSerializableExtra("session");
         if(sessionInfo == null) { // this means call requested from endpoints screen
             int id = getIntent().getIntExtra("sessionId", -1);
             if (id != -1) {
@@ -166,7 +169,7 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
 
     @Override
     public void onDisconnected(Session session) {
-        endCall();
+        sendEndCallSignal();
         finish();
         Log.d(TAG, "onDisconnected: Session disconnected");
     }
@@ -212,11 +215,11 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
 
     }
 
-    private void resetCamera() {
+    private void sendResetCameraSignal() {
         mSession.sendSignal("ios", "__cmd__;reset;", mSession.getConnection());
     }
 
-    private void moveCamera(float x, float y) {
+    private void sendMoveCameraSignal(float x, float y) {
         String panPoint = String.format("point %f %f", x, y);
         String screenWidth = String.format("screen_width %f", mSubscriberViewContainer.getWidth());
         String screenHeight = String.format("screen_height %f", mSubscriberViewContainer.getHeight());
@@ -225,7 +228,7 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
         mSession.sendSignal("ios", command, mSession.getConnection());
     }
 
-    private void zoomCamera(float zoomFactorFloat) {
+    private void sendZoomCameraSignal(float zoomFactorFloat) {
         String zoomFactor = String.format("zoom_scale %f", zoomFactorFloat);
         String screenWidth = String.format("screen_width %f", mSubscriberViewContainer.getWidth());
         String screenHeight = String.format("screen_height %f", mSubscriberViewContainer.getHeight());
@@ -234,7 +237,7 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
         mSession.sendSignal("ios", command, mSession.getConnection());
     }
 
-    private void endCall() {
+    private void sendEndCallSignal() {
         mSession.sendSignal("ios", "__cmd__;call_disconnect;", mSession.getConnection());
     }
 
@@ -264,7 +267,7 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
         mScaleDetector.onTouchEvent(motionEvent);
         if(motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
             if(motionEvent.getPointerCount() == 1) {
-                moveCamera(motionEvent.getX(), motionEvent.getY());
+                sendMoveCameraSignal(motionEvent.getX(), motionEvent.getY());
             }
         }
 
@@ -276,11 +279,11 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
         int id = view.getId();
         switch (id) {
             case R.id.ivResetCamera:
-                resetCamera();
+                sendResetCameraSignal();
                 break;
 
             case R.id.ivCallEnd:
-                mSession.disconnect();
+                rejectCall();
                 break;
 
             case R.id.ivVideo:
@@ -306,9 +309,30 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
                 // TODO send zoom out signal
             }
             mLastScaleFactor = mScaleFactor;
-            zoomCamera(detector.getScaleFactor());
+            sendZoomCameraSignal(detector.getScaleFactor());
             // invalidate();
             return true;
         }
+    }
+
+    private void rejectCall() {
+        CallActionsModel callActionsModel = new CallActionsModel();
+        callActionsModel.setPerformedBy(Integer.valueOf(1));
+        callActionsModel.setPerformedAction("EndSession");
+        callActionsModel.setSpecialistRequestId(sessionInfo.getSpecialistRequestId());
+        VeeDocRepository.getInstance().rejectCall(callActionsModel, new RetrofitCallbackListener<Void>() {
+            public void onFailure(Call<Void> param1Call, Throwable param1Throwable, int param1Int) {
+                Toast.makeText(KartCallActivity.this, "Failed to close the session", com.veemed.veedoc.utils.Toast.LENGTH_LONG).show();
+            }
+
+            public void onResponse(Call<Void> param1Call, Response<Void> param1Response, int param1Int) {
+                if (param1Response.isSuccessful()) {
+                    Toast.makeText(KartCallActivity.this, "Session closed", com.veemed.veedoc.utils.Toast.LENGTH_LONG).show();
+                    mSession.disconnect();
+                } else {
+                    Toast.makeText(KartCallActivity.this, "Could not close the session", com.veemed.veedoc.utils.Toast.LENGTH_LONG).show();
+                }
+            }
+        }, 0);
     }
 }
