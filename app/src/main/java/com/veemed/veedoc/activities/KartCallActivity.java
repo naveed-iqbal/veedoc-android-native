@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.opentok.android.Connection;
 import com.opentok.android.OpentokError;
 import com.opentok.android.Publisher;
 import com.opentok.android.PublisherKit;
@@ -31,7 +32,7 @@ import retrofit2.Call;
 import retrofit2.Response;
 
 public class KartCallActivity extends AppCompatActivity implements Session.SessionListener,
-        PublisherKit.PublisherListener, View.OnTouchListener, View.OnClickListener {
+        PublisherKit.PublisherListener, View.OnTouchListener, View.OnClickListener, Session.SignalListener {
 
     private static final String TAG = KartCallActivity.class.getSimpleName();
     private static String API_KEY = "";
@@ -45,6 +46,7 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
     private ImageView ivCallCancel;
     private ImageView ivMic;
     private ImageView ivCamera;
+    private ImageView ivResetCamera;
 
     private Publisher mPublisher;
     private Subscriber mSubscriber;
@@ -87,10 +89,12 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
         ivCallCancel = findViewById(R.id.ivCallEnd);
         ivCamera = findViewById(R.id.ivVideo);
         ivMic = findViewById(R.id.ivMic);
+        ivResetCamera = findViewById(R.id.ivResetCamera);
 
         ivCallCancel.setOnClickListener(this);
         ivCamera.setOnClickListener(this);
         ivMic.setOnClickListener(this);
+        ivResetCamera.setOnClickListener(this);
 
         mPublisherViewContainer = (FrameLayout)findViewById(R.id.publisher_container);
         mSubscriberViewContainer = (FrameLayout)findViewById(R.id.subscriber_container);
@@ -135,6 +139,14 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
 
         } else {
             EasyPermissions.requestPermissions(this, "This app needs access to your camera and mic to make video calls", RC_VIDEO_APP_PERM, perms);
+        }
+    }
+
+    @Override
+    public void onSignalReceived(Session session, String type, String data, Connection connection) {
+        String myConnectionId = session.getConnection().getConnectionId();
+        if (connection != null && connection.getConnectionId().equals(myConnectionId)) {
+            // Signal received from another client
         }
     }
 
@@ -263,6 +275,10 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
+            case R.id.ivResetCamera:
+                resetCamera();
+                break;
+
             case R.id.ivCallEnd:
                 mSession.disconnect();
                 break;
@@ -277,7 +293,6 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
         }
     }
 
-
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
@@ -291,7 +306,7 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
                 // TODO send zoom out signal
             }
             mLastScaleFactor = mScaleFactor;
-            zoomCamera(mScaleFactor);
+            zoomCamera(detector.getScaleFactor());
             // invalidate();
             return true;
         }
