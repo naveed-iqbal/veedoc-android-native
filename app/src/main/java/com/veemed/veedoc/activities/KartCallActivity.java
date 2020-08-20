@@ -54,10 +54,10 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
 
     private ScaleGestureDetector mScaleDetector;
     private float mScaleFactor = 1.f;
+    private float mLastScaleFactor;
 
     private boolean isAudioPublished = true;
     private boolean isVideoPublished = true;
-    private float mLastScaleFactor;
 
     RetrofitCallbackListener<SessionInfo> sessionInfoCallbackListener = new RetrofitCallbackListener<SessionInfo>() {
         @Override
@@ -208,7 +208,16 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
         String panPoint = String.format("point %f %f", x, y);
         String screenWidth = String.format("screen_width %f", mSubscriberViewContainer.getWidth());
         String screenHeight = String.format("screen_height %f", mSubscriberViewContainer.getHeight());
-        String command = String.format("__cmd__;ptz_start;%@;%@;%@;ptz_end;", panPoint, screenWidth, screenHeight);
+        String command = String.format("__cmd__;ptz_start;%s;%s;%s;ptz_end;", panPoint, screenWidth, screenHeight);
+
+        mSession.sendSignal("ios", command, mSession.getConnection());
+    }
+
+    private void zoomCamera(float zoomFactorFloat) {
+        String zoomFactor = String.format("zoom_scale %f", zoomFactorFloat);
+        String screenWidth = String.format("screen_width %f", mSubscriberViewContainer.getWidth());
+        String screenHeight = String.format("screen_height %f", mSubscriberViewContainer.getHeight());
+        String command = String.format("__cmd__;ptz_start;%s;%s;%s;ptz_end;", zoomFactor, screenWidth, screenHeight);
 
         mSession.sendSignal("ios", command, mSession.getConnection());
     }
@@ -277,11 +286,12 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
             // Don't let the object get too small or too large.
             mScaleFactor = Math.max(0.1f, Math.min(mScaleFactor, 5.0f));
             if(mScaleFactor < mLastScaleFactor) {
-                // TODO send zoom signal
+                // TODO send zoom in signal
             } else if(mScaleFactor > mLastScaleFactor) {
-                // TODO send zoom signal
+                // TODO send zoom out signal
             }
             mLastScaleFactor = mScaleFactor;
+            zoomCamera(mScaleFactor);
             // invalidate();
             return true;
         }
