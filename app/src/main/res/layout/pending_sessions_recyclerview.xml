@@ -89,7 +89,7 @@
             android:drawableTint="@color/white"
             android:textSize="14sp"
             android:padding="7dp"
-            android:drawableStart="@drawable/ic_call_end_black_24dp"
+            android:drawableStart="@drawable/ic_call_end"
             android:backgroundTint="@color/red"
             android:text="@string/reject"
             android:textColor="@android:color/white"
