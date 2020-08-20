@@ -148,7 +148,7 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
     public void onSignalReceived(Session session, String type, String data, Connection connection) {
         String myConnectionId = session.getConnection().getConnectionId();
         if (connection != null && connection.getConnectionId().equals(myConnectionId)) {
-            // TODO disconnect call
+            mSession.disconnect();
         }
     }
 
@@ -264,7 +264,7 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
     public boolean onTouch(View view, MotionEvent motionEvent) {
 
         mScaleDetector.onTouchEvent(motionEvent);
-        if(motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+        if(motionEvent.getAction() == MotionEvent.ACTION_MOVE || motionEvent.getAction() == MotionEvent.ACTION_UP) {
             if(motionEvent.getPointerCount() == 1) {
                 sendMoveCameraSignal(motionEvent.getX(), motionEvent.getY());
             }
@@ -298,7 +298,7 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            mScaleFactor *= detector.getScaleFactor();
+           mScaleFactor *= detector.getScaleFactor();
 
             // Don't let the object get too small or too large.
             mScaleFactor = Math.max(0.1f, Math.min(mScaleFactor, 5.0f));
