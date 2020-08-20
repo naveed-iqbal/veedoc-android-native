@@ -204,6 +204,15 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
         mSession.sendSignal("ios", "__cmd__;reset;", mSession.getConnection());
     }
 
+    private void moveCamera(float x, float y) {
+        String panPoint = String.format("point %f %f", x, y);
+        String screenWidth = String.format("screen_width %f", mSubscriberViewContainer.getWidth());
+        String screenHeight = String.format("screen_height %f", mSubscriberViewContainer.getHeight());
+        String command = String.format("__cmd__;ptz_start;%@;%@;%@;ptz_end;", panPoint, screenWidth, screenHeight);
+
+        mSession.sendSignal("ios", command, mSession.getConnection());
+    }
+
     private void endCall() {
         mSession.sendSignal("ios", "__cmd__;call_disconnect;", mSession.getConnection());
     }
@@ -234,7 +243,7 @@ public class KartCallActivity extends AppCompatActivity implements Session.Sessi
         mScaleDetector.onTouchEvent(motionEvent);
         if(motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
             if(motionEvent.getPointerCount() == 1) {
-                // TODO send move signal
+                moveCamera(motionEvent.getX(), motionEvent.getY());
             }
         }
 
